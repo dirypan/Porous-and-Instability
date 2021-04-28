@@ -1,0 +1,18 @@
+1) "however, due to the pore throat blockages and changes in the network connections the evolution diverges from its initial trend.": do we show this? If not we should remove.
+2) "proportional to the power dissipated by the flow [24–26]. More recently it has been shown using a coarse-grained model and an erosion that depends on the pressure gradient branching instability has been observed": this sentence doesn't make sense as it is.
+3) "not requiring any additional homogenization or mean-field approximation": I'd remove mean-field here as you use it later in the paper and it is confusing
+4) "In order to study erosion in such network models, the degradation of the solid skeleton or clogging": you start with erosion but then mention clogging?
+5) "or even become unstable...": I'd remove "even"
+6) p.1 right column: using l for pore radius is confusing, I would use r for this for consistency with the rest of the paper.
+7) "(see Fig 1b for a part of..": 1b(i) 
+8) "small number of extremely large fluid flux" ->  "small number of edges with extremely large fluid flux"
+9) "(Fig 1b)" -> Fig1b(ii)
+10) "(see supplementary material)" ->  (see supplementary material S3)
+11) [40,41]: I'd add a reference to Alim et al. here too.
+12) "We considered the diamond-grid network": I might remember incorrectly but I thought that we decided to show the randomized networks in Fig. 2?
+13) Discussion starting with "Note that r_ij(t+1)=..." and ending with "no sudden change in the network" can be removed or moved to the SI if space is needed.
+14) "in all cases the same amount of material is eroded": this is only approximately true, right?
+15) There are typos in refs 3 (missing ref), 19 (no need for abbreviation if full name is provided),  23 (name should be in capital letters), 35 (unclear if this is book or paper?) and 36 should be removed for now since it is not on the arxiv. 
+- I don't see the logic in presenting the results for the diamond structure just because we motivate it in the introduction. In that case the correct solution is to remove it from the introduction! But I wouldn't suggest that, since as we discussed in our last zoom meeting on this there is merit in showing the results *both* for the random network and the diamond-structure: the former is the one we care more about since it is more realistic, the latter proves that the graph *topology* does not affect the results and the nature of the phase transition. Does that make sense? For this logic, the diamond-network should be motivated already in the intro as having the advantage of a simple, ordered topology, and then it makes more sense I think to show the results of the random network in the main text and cite the SI for the diamond-network.
+
+- As for 2d vs. 3d: ideally we would want to check that the results carry-over to 3d. I suspect that this is a natural question that a reviewer may ask. How hard is it to extend the codes to 3d?

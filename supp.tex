@@ -1,0 +1,525 @@
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.2 distribution.
+%   Version 4.2a of REVTeX, December 2014
+%
+%   Copyright (c) 2014 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.2
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[%
+%  reprint,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+% preprint,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+%  aps,
+%pra,
+% prb,
+% rmp,
+% prstab,
+prstper,
+% floatfix,
+]{revtex4-2}
+
+\usepackage[usenames, dvipsnames]{color}
+% Color Edits
+\newcommand{\EM}[1]{\noindent \color{red} (AA: #1)\normalcolor}
+\newcommand{\AZ}[1]{\noindent \color{blue} (AZ: #1)\normalcolor}
+
+\usepackage{braket}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}
+\usepackage[usenames, dvipsnames]{color}
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\newcommand{\KB}[1]{\noindent \color{magenta} (KB: #1)\normalcolor}
+
+\renewcommand{\thepage}{S\arabic{page}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\def\lp{\left(}
+\def\rp{\right)}
+\def\lb{\left[}
+\def\rb{\right]}
+\begin{document}
+
+
+\preprint{APS/123-QED}
+
+
+
+\title{Temporal Evolution in the Networks of Porous Materials:\\ From Homogenization to Instability}% Force line breaks with \\
+% \thanks{A footnote to the article title}%
+
+\author{Ahmad Zareei}
+\affiliation{ School of Engineering and Applied Sciences, Harvard University, Cambridge, MA, 02148}%\altaffiliation[]{SEAS, Pierce Hall}%Lines break automatically or can be forced with \\
+\author{Pan Deng}%
+\affiliation{ School of Engineering and Applied Sciences, Harvard University, Cambridge, MA, 02148}%\altaffiliation[]{SEAS, Pierce Hall}%Lines break automatically or can be forced with
+\author{Ariel Amir}%
+\email{arielamir@seas.harvard.edu}
+\affiliation{ School of Engineering and Applied Sciences, Harvard University, Cambridge, MA, 02148}%\altaffiliation[]{SEAS, Pierce Hall}%Lines break automatically or can be forced with
+% need to figure out how to reference dagger
+
+
+
+
+% \collaboration{MUSO Collaboration}%\noaffiliation
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\maketitle
+\section{Simulation algorithm}
+%
+In our simulations, we tested two types of network: a (i) diamond-grid network, and a (ii) topologically random network. In the diamond-grid network, we choose $N_x=200$ edges in the horizontal direction and $N_y=100$ edges in the vertical direction. The random network is created using uniformly distributed points with on average $N_x\times N_y$ edges in the horizontal and vertical directions. Note that the randomly distributed points are connected using a Delaunay triangulation. The diameter of each edge is sampled from either a uniform distribution in $r\in[1,14]$, log-normal distribution with $\mu=3,\sigma=0.48$, or truncated normal distribution with $\mathcal{N}(\mu=7.0,\sigma=3.6)$.   The external flow pressure is applied horizontally from left to right. An external pressure is then considered between the left-most nodes and the rightmost nodes ($p_\text{left}=10,p_\text{right}=0$). Assuming a Poiseuille flow in each edge, the fluid flow $q$ and pressure difference $\delta P_e$ in each edge is related through $q_e = C_e \delta P_e$, where $C_e = \pi r^4_e/8\mu L_e$,  $L_e$ is the length of the tube, and $\mu$ is the viscosity of the fluid. Let $\Delta$ be the transpose of the network's oriented incidence matrix. Note that the orientation of each edge is arbitrary since it only determines the positive direction of flow in that edge. Define $\ket{q_e}$ as the vector of flow through all the edges, then we have $\ket{q_e} = C_e\Delta \ket{P_n}$ where $\ket{P_n}$ is the vector of pressure at all the nodes. With a given boundary condition, we solve the equation through a modified nodal analysis as follows. The conservation of mass at each node can be written as 
+%
+
+\begin{align}
+    \ket{q_n} = \Delta^\top \mathbf{C} \Delta \ket{P_n}, \label{eq:governeing}
+\end{align}
+%
+where $\mathbf{C} = \text{diag}\left( C^{(1)}_e, C^{(2)}_e, \cdots,C^{(N_e)}_e\right)$ is a diagonal matrix of edge conductances, and $\ket{q_n}$ is the vector of total incoming flow to each node. Note that total incoming flow to an internal node is zero inside the network due to the conservation of mass, and is only non-zero at the boundary nodes. Renumbering the boundary nodes to $1,2,\cdots, N_{B}$, we can partition Eq. \eqref{eq:governeing} to obtain 
+
+\begin{align}
+ \begin{bmatrix} {\Delta_{b}}^\top \mathbf{C} {\Delta_{b}}  & \vline &    {\Delta_{b}}^\top \mathbf{C} {\Delta_{n}} \\ \hline  
+    {\Delta_{n}}^\top \mathbf{C} {\Delta_{b}} & \vline & {\Delta_{n}}^\top \mathbf{C} {\Delta_{n}}
+    \end{bmatrix} \begin{bmatrix} P^{BC}_1 \\ P^{BC}_2 \\ \vdots \\ P_{N_B} \\  \hline  P_{N_B+1} \\ \vdots \\ P_{N_n}
+    \end{bmatrix} = \begin{bmatrix} q^{BC}_1 \\ q^{BC}_2 \\ \vdots \\ q^{BC}_{N_B} \\ \hline  0 \\ \vdots \\ 0\end{bmatrix} \to 
+    \begin{bmatrix} 
+    \mathbf{A}_{bb} & \mathbf{A}_{bn} \\
+    \mathbf{A}_{nb} & \mathbf{A}_{nn}       
+    \end{bmatrix} \begin{bmatrix} P^{BC}_1 \\ P^{BC}_2 \\ \vdots \\ P^{BC}_{N_B} \\ \hline  P_{N_B+1} \\ \vdots \\ P_{N_n}
+    \end{bmatrix} = \begin{bmatrix} q^{BC}_1 \\ q^{BC}_2 \\ \vdots \\ q^{BC}_{N_B}  \\ \hline  0 \\ \vdots \\ 0\end{bmatrix}, 
+\end{align}
+%
+where $\mathbf{A}_{st} = \Delta^\top_s \mathbf{C}\Delta^\top_t$ and  $s,t\in\left\{a,b\right\}$. In summary the above equations simplifies to 
+%
+\begin{align}
+    \begin{cases} 
+        \mathbf{A}_{bb} \ket{P_{BC}} + \mathbf{A}_{bn}  \ket{P} = \ket{q_{BC}}, \\
+    \mathbf{A}_{nb}\ket{P_{BC}} +  \mathbf{A}_{nn} \ket{P} = 0. 
+    \end{cases} 
+    % \\ \mathbf{A}_{nn} \ket{P_n} =- \mathbf{A}_{nb}\ket{P_{BC}} 
+    \label{eq:main-network}
+\end{align}
+%
+Solving the above equations results in the nodes' pressure and also the fluid flux at the boundary nodes. With the flux at each edge, $q_e$, the increase (decrease) of tube radius under erosion (clogging) is obtained as 
+%
+\begin{align}
+    \frac{dr_e}{dt} \propto \pm  \frac{q_e}{r_e^n}.
+\end{align}
+%
+We use simple forward Euler for time integration. For each iteration, we choose the time step $dt$ so that $\max(dr_e) = 0.1 r_0$, where $r_0$ is the smallest radius among all edges.
+
+\newpage
+\section{Additional Numerical Result}
+%
+\begin{figure}[h]
+    % \centering
+    \includegraphics[width = 0.75\textwidth]{Figs/Fig2_random-low.png}
+    \caption{Ahmad's version: Erosion in a topologically random network of pipes. The first row shows the initial condition at $t=0$. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}
+\end{figure}
+%
+
+\newpage
+\section{Analytical results}
+%
+\label{sec:analytical}
+%
+As described in the main text, the PDF of flow in a topologically disordered network of tubes is the same as a structured diamond grid when the radius of the tubes is highly disordered. In this section, we show that the observed exponential distribution of fluid flux can be described using a mean-field approach on a structured grid. Basically, the random distribution of the diameters along with the conservation of mass in the network are the two main ingredients resulting in an exponential tail distribution. In a diamond grid, the incoming flow to a node is redistributed among the outgoing edges (since fluid mass is conserved). Due to the randomness in the tube's diameter, one can imagine that the redistribution of the incoming flow to a node between the outgoing edges is random variable. The only condition required to be hold here is that the incoming flux should be equal to the outgoing flux. This model for the flow can be mapped one to one to the problem of force fluctuations in a bead pack \cite{liu1995force,coppersmith1996model,alim2017local} as shown in Fig. \ref{grid-result}. In a bead pack, the force at each layer is redistributed to the next layer where the total force exerted on the next layer should equal to that of the previous layer. 
+%
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.75\textwidth]{./Figs/grid-analytica.eps}
+  \caption{(a) Schematic of diamond grid network of tubes. The incoming flow to each node is redistributed among the outgoing edges. The thickness of the lines shows the fluid flux transferred in that edge. (b) Schematic diagram showing beads (represented with nodes) and their contacts to the neighboring sites (represented with edges). The thickness of the edges show the weight transferred through that contact.} \label{grid-result}
+\end{figure}
+%
+Given the above conditions, the flow at layer $L+1$ at node $j$ can be obtained as 
+%
+\begin{align}
+  q(L+1,j) = \sum_i w_{ij} q(L,i) = w_{i,i+1} q(L,i+1) + w_{i,i} q(L,i), \label{total-flow}
+\end{align}
+%
+where $w_{ij}$ shows the weights by which the flow is redistributed. Note that since the total fluid flux is conserved, then  $\sum_{j} w_{ij} = 1$. 
+% Next, we assume that the weights $w_{ij}$ are drawn from a distribution $\eta(w)$. Since $\eta(w)$ is a distribution, then $\int \eta(w) dw = 1$. Furthermore, since $\sum_jw_{ij} = 1$, we can conclude that
+%
+%\begin{align}
+%  \sum_j w_{ij}=1 \to N {E}[w_{ij}] = 1 \to E[w_{ij}] = 1/N \to {\int w\eta(w) dw = 1/N}
+% \end{align}
+%
+Assuming a general distribution of $\eta(w)$, we can use the mean-field approximation to find the distribution of $q$ at the layer $L$, i.e., $p_L(q)$. The values of $q(L,i)$ are not independent for neighboring
+sites; however, in our mean-field approximation we ignore such
+correlations. We find
+%
+\begin{align}
+  p_L (q) = \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \int_0^{\infty} dq_j p_{L-1}(q_j)\right\} \times \delta \left( \sum_j w_j q_{j} - q \right),
+\end{align}
+%
+% The only approximation in the above equation is that we neglect the possible correlation between the values of $q$ among ancestors. 
+where $N$ is the number of outgoing edges (e.g., in our structured diamond grid $N=2$) and $\delta(\cdot)$ is the Kronecker delta function. Note that the constraint that $q$'s emanating downward should add up to one is in the definition of $\eta(w)$. Taking the Laplace transform of the above equation and defining $\tilde p(s) & \equiv \int_0^{\infty} p(q) e^{-qs} dq$ we obtain
+%
+% \begin{align}
+ % \tilde P(s) & \equiv \int_0^{\infty} P(Q) e^{-Qs} dQ\\
+%   \xrightarrow{\int_0^{\infty} (\cdot) e^{-Qs} dQ}  P (Q) & = \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \int_0^{\infty} dQ_j P(Q_j)\right\} \times \delta \lp \sum_j w_j Q_{j} - Q \rp \\
+%   \tilde P(s) & = \int_0^{\infty} \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \int_0^{\infty} dQ_j P(Q_j)\right\} \times \delta \lp \sum_j w_j Q_{j} - Q \rp e^{-Qs}dQ \\
+  %            & = \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \int_0^{\infty} dQ_j e^{-\sum w_{j}Q_{j}} P(Q_j)\right\}   \\
+%              & = \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \tilde P(s w_j) \right\} \\
+%   & = \lp  \int_0^1 d w \eta(w) \tilde P(s w)  \rp^{N}
+% \end{align}
+%
+% Or in summary
+%
+\begin{align}
+  {\tilde P_L(s) = \lp  \int_0^1 d w \eta(w) \tilde P_{L-1}(s w)  \rp^{N}}. \label{eq:main-laplace}
+\end{align}
+%
+The probability distribution at the layers converges to a distribution $\tilde P(s)$. The final solution for a structured diamond grid with two neighboring sites becomes $p(q) = 4q\exp(-2q)$ \cite{liu1995force,coppersmith1996model,alim2017local}, which is a distribution with an exponential tail. 
+
+
+
+
+\newpage
+
+\begin{figure}[h]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{Figs/randomNetworkErosion3.pdf}
+    \caption{Deng's version: Erosion in a topologically random network of pipes. The initial condition is shown with the label $t=0$ in the first row. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$ or twice the initial average radius. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}
+\end{figure}
+
+
+
+% \clearpage
+% \newpage
+\bibliography{ref}% Produces the bibliography via BibTeX.
+
+\end{document}
+%
+
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+
+
+\newpage
+\section{Clogging behavior at initial times}
+% 
+Considering a small change in the radius of edges, and as a result, the conductance of the edges $\mathbf{C}+\delta \mathbf{C}$, using Eq. \eqref{eq:main-network} we find that 
+%
+\begin{align}
+    \ket{P'} &=  \ket{P} -  \left( \Delta_n^\top\mathbf{C} \Delta_n\right)^{-1}\left[  \left( \Delta_n^\top \delta \mathbf{C} \Delta_n\right)\ket{P} + \left( \Delta_n^\top\delta \mathbf{C} \Delta_b\right) \ket{P_{BC}}\right],
+\end{align}
+%
+where we used the fact that for an invertible matrix $\mathbf{A}$ we have 
+%
+\begin{align}
+    \left(\mathbf{A} + \delta \mathbf{A} \right)^{-1} = \mathbf{A}^{-1} - \left( \mathbf{A}^{-1} \delta \mathbf{A}\right) \mathbf{A}^{-1} + \left( \mathbf{A}^{-1}  \delta \mathbf{A}\right)^{2}\mathbf{A}^{-1}  + \cdots.
+\end{align}
+%
+Calculating for the changes in the fluid flux, we find that 
+%
+\begin{align}
+\ket{q'} & = \left( \mathbf{C}+ \delta \mathbf{C}  \right)\left( \Delta_b \ket{P_{BC}} +  \Delta_n \ket{P'} \right) \\
+& = \ket{q} + \delta\mathbf{C} \mathbf{C}^{-1}\ket{q} - \mathbf{C} \Delta_n \left( \Delta_n^\top\mathbf{C} \Delta_n\right)^{-1}\left[  \left( \Delta_n^\top \delta \mathbf{C} \Delta_n\right)\ket{P} + \left( \Delta_n^\top\delta \mathbf{C} \Delta_b\right) \ket{P_{BC}}\right].
+\end{align}
+%
+The above equation can then be used to study the evolution of order parameter in the networks. Note that during the blockage of pore-throats, the connectivity between the nodes changes and as a result network's connectivity matrix $\Delta$ changes and the above approximation will not hold anymore.  
+
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+%###############################################################
+
+% ****** End of file apssamp.tex ******
+
+ If we set
+$\eta(w) = \delta(w-1/2)$, then the flow at each node has probability of
+$1/2$ to move to either of the neighboring sites. As a result the flow at a given depth $L$ will become homogeneous as $P_L(Q) = \delta (Q-\bar{Q})$ where $\bar{Q}$
+is the average of input fluid flow. This results is the same as having the same
+diameter for all the edges which results in a singular solution in the structured grid.
+% 
+\subsection*{$P(Q)$ decays faster than $Q^{-n}$ for any $n$}
+We first show that $P(Q)$ decays faster than any power of $Q$ for any
+weight distributions. We expand the Laplace transform using a Taylor expansion as 
+%
+\begin{align}
+  \tilde P(s) = 1 + \sum_j \tilde P_{j} s^{j}.
+\end{align}
+%
+Inserting this expansion into Eq. \eqref{eq:main-laplace}, we obtain
+%
+\begin{align}
+  1 + \sum_j \tilde P_{j} s^{j}  & = \lp  \int_0^1 d w \eta(w) \lb 1 + \sum_j \tilde P_{j} (sw)^{j}\rb    \rp^{N}  = \lp  1 + \sum_j \tilde P_j \langle w^{j}\rangle  s^{j}   \rp^{N}
+\end{align}
+%
+where $\langle w^j \rangle = \int_0^1 \eta(w) w^j dw$ is the $j$-th
+moment of the weights $w$. In the above equation we can observe that
+%
+\begin{align}
+  P_j \lp N \langle w^j\rangle -1 \rp = G(P_{j-1}, P_{j-1}, \cdots, P_1)
+\end{align}
+%
+In the above equation $P_j$ can only diverge only if $N\langle w^j
+\rangle -1=0$. If $w$ can only be zero and one, then $\langle
+w^j\rangle =\langle w \rangle = 1/N$ and the coefficient can become
+zero! Other than this special distribution, when $0 \leq w \leq 1$, then
+%
+\begin{align}
+  & w\in [0,1] \rightarrow w>w^2>w^3> \cdots \\
+  & \forall k>1 \rightarrow \langle w^k \rangle < \langle w \rangle = \frac{1}{N} 
+\end{align}
+%
+which means that $N\langle w^j \rangle -1\neq 0$ and as a result
+$P_j$ is finite. $P_j$ on the other hand is the $j$-th moment or
+$\langle Q^j\rangle$ and it is finite. If $P\approx Q^{-n}$, then the
+$n$-th moment will not be finite i.e. $\langle Q^{n+1}\rangle =
+P_{n+1}$ is not finite. We can then conclude that $P(Q)$ should go to
+zero faster than any $Q^{-n}$ as $Q\to \infty$! In other words $d \log
+P(Q) / d \log Q \to -\infty$ as $Q\to \infty$.  
+% 
+\subsection*{Exponential Decay}
+%
+The main recursive governing equation for a diamond grid is  
+%
+\begin{align}
+  \tilde P(s) = \lp  \int_0^1 d w \eta(w) \tilde P(s w)  \rp^{2} \label{eq:main-recur}
+\end{align}
+%
+% In order to have an approximation for $\eta(w)$ we consider the following situation:
+At each node there are two neighboring nodes where the flux is distributed by
+$w_1$ and $w_2$ among them. Assuming that $w_1$ is uniformly distributed
+between $0$ and $1$, then $w_2 = 1-w_1$ (due to  conservation of
+mass $w_1 + w_2 = 1$). Now $\eta(w)$ can be obtained using 
+%
+\begin{align}
+  & \eta(w) = M \int_0^1 dw_1 \delta(1-w_1-w) =  M, \\
+  \text{since }& \int_0^1 \eta(w) dw = 1 \to M =1 \\
+  & \eta (w) = 1
+\end{align}
+%
+Just for completeness, if there are three neighboring connections ($N=3$), then we
+have
+%
+\begin{align}
+  \eta(w) & = M \int_0^1 dw_1 \int_0^1 dw_2 \delta(1-w_1-w_2 - w)\\
+          & = M(1-w)  \to \int_0^1\eta(w) dw = 1 \to M = \frac{1}{2} \\
+  & \eta(w) = \frac{1}{2} (1-w)
+\end{align}
+%
+As a result Eq.~\eqref{eq:main-recur} simplifies to
+%
+\begin{align}
+  \tilde P(s) = \lp  \int_0^1 d w  \tilde P(s w)  \rp^{2} 
+\end{align}
+%
+In order to solve the above equation, we assume $\tilde V (s) =
+\sqrt{\tilde{P}(s)}$.
+%
+\begin{align}
+  \tilde{V}(s) & = \int_0^1 dw \tilde V (sw) = \int_0^s \frac{du}{s}  \tilde{V}^{2}(u) \\
+  s\tilde{V}(s) & = \int_0^s du  \tilde{V}^2(u) \\
+\end{align}
+%
+Taking the differentiation with respect to $s$ yields
+%
+\begin{align}
+  \tilde{V}(s) + s \frac{d \tilde{V}(s)}{d s} = \tilde{V}^2(s) \\
+  \frac{d \tilde{V}}{\tilde{V}^2-\tilde{V}} = \frac{ds}{s}  \\
+  \log\lp \frac{1-\tilde{V}}{\tilde{V}} \rp  = \log(s)\\
+  \tilde{V}(s) = \frac{1}{1+Cs} 
+\end{align}
+%
+We set the mean to $1$ i.e.,
+%
+\begin{align}
+  \int_0^{\infty} Q P(Q) dQ = 1 \to \frac{d\tilde{P}}{ds}|_{s=0}  = -1\\
+  \frac{d \tilde{V}}{ds}  = \frac{1}{2 \sqrt{\tilde{P}(s)}} \frac{d \tilde{P}(s)}{d s}   \to \frac{d\tilde{V}(s)}{ds}|_{s=0} =\frac{-1}{2} \\
+  \frac{d\tilde{V}(s)}{ds} = \frac{-C}{(1+Cs)^{2}}|_{s=0} = -C = \frac{-1}{2}  \to C=\frac{1}{2} 
+\end{align}
+%
+As a result, we have
+%
+\begin{align}
+  \tilde{P}(s) = \lp\frac{1}{1+s/2} \rp^2 \\
+  P(Q) = 4Q e^{-2Q}
+\end{align}
+%
+We can then show that for a uniform distribution of $w$'s, the PDF of
+$Q$'s become an exponential tail. For other distribution of $w$'s, we
+similarly find a similar trend which can be seen in the numerical simulations. 
+% Actually, we showed that the PDF of $Q$ should decay faster than any power law for any distribution of
+$w$. 
+Note that in the distribution with exponential tail, the only parameter that determines the the PDF of the average fluid flow. This shows that why we observe the universal behaviour for the PDF of normalized fluid flux where the average of normalized fluid flux is unity.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+For each resistor we know that
+%
+\begin{align}
+    q_{e} = R_{e} \Delta P_{e}
+\end{align}
+%
+Assume that matrix $\mathbf{C}$ relates the pressure at nodes to the pressure difference, where 
+%
+\begin{align}
+    \ket{\Delta P_e} = \mathbf{C} \ket{P_n}, \quad \ket{q_e} = \mathbf{R} \ket{\Delta P_e}, \quad \ket{q_n} = \mathbf{C}^\top \ket{q_e} \\
+    \ket{q_n} = \mathbf{C}^\top \mathbf{R} \mathbf{C}\ket{P_n}
+\end{align}
+%
+\begin{align}
+    \mathbf{C}^\top \mathbf{R} \mathbf{C}\begin{bmatrix} P_1 \\ P_2 \\ \vdots \\ P_n
+    \end{bmatrix}
+    = \ket{q} \to \begin{bmatrix} \mathbf{C_{b}}^\top \mathbf{R} \mathbf{C_{b}}  & \vline &    \mathbf{C_{b}}^\top \mathbf{R} \mathbf{C_{n}} \\ \hline  
+    \mathbf{C_{n}}^\top \mathbf{R} \mathbf{C_{b}} & \vline & \mathbf{C_{n}}^\top \mathbf{R} \mathbf{C_{n}}
+    \end{bmatrix} \begin{bmatrix} P^{BC}_1 \\ P^{BC}_2 \\ \vdots \\ \hline  P_n \\ \vdots \\ P_{N_n}
+    \end{bmatrix} = \begin{bmatrix} q_1 \\ q_2 \\ \vdots \\ \hline  0 \\ \vdots \\ 0\end{bmatrix} \\
+    \begin{bmatrix} 
+    \mathbf{A}_{bb} & \mathbf{A}_{bn} \\
+    \mathbf{A}_{nb} & \mathbf{A}_{nn}       
+    \end{bmatrix} \begin{bmatrix} P^{BC}_1 \\ P^{BC}_2 \\ \vdots \\ \hline  P_n \\ \vdots \\ P_{N_n}
+    \end{bmatrix} = \begin{bmatrix} q_1 \\ q_2 \\ \vdots \\ \hline  0 \\ \vdots \\ 0\end{bmatrix} \to \begin{cases} 
+        \mathbf{A}_{bb} \ket{P_{BC}} + \mathbf{A}_{bn}  \ket{P_{n}} = \ket{q} \\
+    \mathbf{A}_{nb}\ket{P_{BC}} +  \mathbf{A}_{nn} \ket{P_n} = 0 
+    \end{cases} \\
+     \mathbf{A}_{nn} \ket{P_n} =- \mathbf{A}_{nb}\ket{P_{BC}} \to \mathbf{A}_{nn} \ket{P_n} = \mathbf{b}
+\end{align}
+
+
+
+In solving our problem, we have 
+%
+\begin{align}
+ \mathbf{C}_{n}^\top \mathbf{R} \mathbf{C}_{n}\ket{P} =     - \mathbf{C}_{n}^\top \mathbf{R} \mathbf{C}_{b}\ket{P}_{BC}  \to \mathbf{A}_{nn} \ket{P_n} = \mathbf{B}\ket{P}_{BC}
+\end{align}
+%
+where $\mathbf{b}$ comes from the boundary conditions. When the pressures are found then $\ket{q} = \mathbf{R}\mathbf{C} \ket{P}$, we can obtain the new fluxes. Now the question is that if $\mathbf{R} = \mathbf{R}+\delta \mathbf{R}$, then what happens to the $\ket{q}$ with respect to the first order of perturbation? if we set $\mathbf{R} = \mathbf{R}+\delta \mathbf{R}$ then
+%
+\begin{align}
+\mathbf{C}_{n}^\top \left( \mathbf{R} + \delta \mathbf{R} \right) \mathbf{C}_{n}\ket{P'} &= - \mathbf{C}_{n}^\top \left( \mathbf{R} + \delta \mathbf{R} \right) \mathbf{C}_{b}\ket{P}_{BC} \\
+(\mathbf{A} + \delta \mathbf{A}) \ket{P'} &= (\mathbf{B} + \delta \mathbf{B})\ket{P_{BC}} \\
+\ket{P'} &=(\mathbf{A} + \delta \mathbf{A})^{-1} (\mathbf{B} + \delta \mathbf{B})\ket{P_{BC}}  \\
+\ket{P'} &= \left( \mathbf{A}^{-1} - \left( \mathbf{A}^{-1} \delta \mathbf{A}\right) \mathbf{A}^{-1}\right) (\mathbf{B} + \delta \mathbf{B})\ket{P_{BC}} \\
+\ket{P'} &= \mathbf{A}^{-1} \mathbf{B} \ket{P_{BC}} + \mathbf{A}^{-1}\delta \mathbf{B}\ket{P_{BC}} - \mathbf{A}^{-1} \delta \mathbf{A} \mathbf{A}^{-1} \mathbf{B} \ket{P_{BC}} \\
+\ket{P'} &= \ket{P} + \mathbf{A}^{-1}\delta \mathbf{B}\ket{P_{BC}} - \mathbf{A}^{-1} \delta \mathbf{A} \ket{P}
+\end{align}
+%
+where we used the fact that 
+%
+\begin{align}
+    \left(\mathbf{A} + \delta \mathbf{A} \right)^{-1} = \mathbf{A}^{-1} - \left( \mathbf{A}^{-1} \delta \mathbf{A}\right) \mathbf{A}^{-1} + \left( \mathbf{A}^{-1}  \delta \mathbf{A}\right)^{2}\mathbf{A}^{-1}  + \cdots
+\end{align}
+%
+The fluid flow can then be obtained 
+%
+\begin{align}
+    \ket{q'} = \left( \mathbf{R}+ \delta \mathbf{R}\right) \mathbf{C} \ket{P'}    \\
+    \text{where} \quad \mathbf{A} = \mathbf{C}^\top\mathbf{R} \mathbf{C},\quad \delta \mathbf{A} = \mathbf{C}^\top \delta \mathbf{R} \mathbf{C}
+\end{align}
+%
+Upto the first order, we find that
+%
+\begin{align}
+    \ket{P'} &= \ket{P} + \mathbf{A}^{-1}\delta \mathbf{B}\ket{P_{BC}} - \mathbf{A}^{-1} \delta \mathbf{A} \ket{P} \\
+    & = \left(\mathbf{I} - \mathbf{A}^{-1} \delta \mathbf{A}  \right) \ket{P} + \mathbf{A}^{-1}\delta \mathbf{B}\ket{P_{BC}} \\
+    & = \left( \mathbf{I} - \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1} \left( \mathbf{C}_n^\top \delta \mathbf{R} \mathbf{C}_n\right)\right)\ket{P} -  \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1} \left( \mathbf{C}_n^\top\delta \mathbf{R} \mathbf{C}_b\right) \ket{P_{BC}} \\
+    & = \ket{P} -  \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1}\left[  \left( \mathbf{C}_n^\top \delta \mathbf{R} \mathbf{C}_n\right)\ket{P} + \left( \mathbf{C}_n^\top\delta \mathbf{R} \mathbf{C}_b\right) \ket{P_{BC}}\right] 
+\end{align}
+%
+Calculating the fluid flow, we obtain
+%
+\begin{align}
+\ket{q'} & = \left( \mathbf{R}+ \delta \mathbf{R}  \right)\left( \mathbf{C}_b \ket{P_{BC}} +  \mathbf{C}_n \ket{P'} \right) \\
+& = \left( \mathbf{R}+ \delta \mathbf{R}  \right)\left( \mathbf{C}_b \ket{P_{BC}} + \mathbf{C}_n \left\{ \ket{P} -  \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1}\left[  \left( \mathbf{C}_n^\top \delta \mathbf{R} \mathbf{C}_n\right)\ket{P} + \left( \mathbf{C}_n^\top\delta \mathbf{R} \mathbf{C}_b\right) \ket{P_{BC}}\right] \right\} \right) \\
+& = \mathbf{R}\left( \mathbf{C}_b \ket{P_{BC}} +  \mathbf{C}_n \ket{P} \right) + \delta \mathbf{R}\left( \mathbf{C}_b \ket{P_{BC}} +  \mathbf{C}_n \ket{P} \right) - \mathbf{R} \mathbf{C}_n \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1}\left[  \left( \mathbf{C}_n^\top \delta \mathbf{R} \mathbf{C}_n\right)\ket{P} + \left( \mathbf{C}_n^\top\delta \mathbf{R} \mathbf{C}_b\right) \ket{P_{BC}}\right]  \\
+& = \ket{q} + \delta\mathbf{R} \mathbf{R}^{-1}\ket{q} - \mathbf{R} \mathbf{C}_n \left( \mathbf{C}_n^\top\mathbf{R} \mathbf{C}_n\right)^{-1}\left[  \left( \mathbf{C}_n^\top \delta \mathbf{R} \mathbf{C}_n\right)\ket{P} + \left( \mathbf{C}_n^\top\delta \mathbf{R} \mathbf{C}_b\right) \ket{P_{BC}}\right]
+\end{align}
+
+
+
+\newpage
+\section{Example}
+%
+ 
+\begin{figure}
+    \vspace{5mm}
+    \centering
+    \includegraphics[width=0.2\textwidth]{./Figs/fig1}
+    \caption{An example of network structure for a network of pipes}
+    \label{Fig:fig1}
+\end{figure}
+%
+%
+\begin{align}
+    \ket{\Delta P_\text{e}} = \mathbf{C} \ket{P_n}, \quad  \ket{q_e} = \mathbf{R} \ket{\Delta P_e}, \quad \ket{q_n} = \mathbf{C}^\top \ket{q_e} \\
+    \begin{bmatrix} \Delta p_e^1 \\ \Delta p_e^2 \\\Delta p_e^3 \\\Delta p_e^4 \\\Delta p_e^5 \\ \Delta p_e^6
+    \end{bmatrix} = \begin{bmatrix} 
+    -1 & 1 & 0 & 0 \\
+     0 & -1 & 1 & 0 \\
+     0 & 0 & -1 & 1 \\
+    -1 & 0 & 0 & 1 \\
+    -1 & 0 & 1 & 0 \\
+     0 & -1 & 0 & 1
+    \end{bmatrix}\begin{bmatrix} P_n^1 \\ P_n^2 \\  P_n^3 \\P_n^4\end{bmatrix}, \quad 
+    \begin{bmatrix}
+    q_e^1\\    q_e^2\\    q_e^3\\    q_e^4\\    q_e^5\\    q_e^6\\
+    \end{bmatrix} = \begin{bmatrix}
+    R_1 & 0 & 0 & 0 & 0 & 0 \\
+    0 & R_2 & 0 & 0 & 0 & 0 \\
+    0 & 0 & R_3 & 0 & 0 & 0 \\
+    0 & 0 & 0 & R_4 & 0 & 0 \\
+    0 & 0 & 0 & 0 & R_5 & 0 \\
+    0 & 0 & 0 & 0 & 0 & R_6 
+    \end{bmatrix}
+    \begin{bmatrix} \Delta p_e^1 \\ \Delta p_e^2 \\\Delta p_e^3 \\\Delta p_e^4 \\\Delta p_e^5 \\ \Delta p_e^6
+    \end{bmatrix} \\
+    \begin{bmatrix}
+    q_n^1 \\    q_n^2 \\    q_n^3 \\    q_n^4 \\
+    \end{bmatrix}= \begin{bmatrix} 
+    -1 & 0 & 0 & -1 & -1 & 0 \\
+    1 & -1 & 0 & 0 & 0 & -1 \\
+    0 & 1 & -1 & 1 & 0 & 0  \\
+    0 & 0 & 1 & 1 & 0 & 1
+    \end{bmatrix}\begin{bmatrix}
+    q_e^1\\    q_e^2\\    q_e^3\\    q_e^4\\    q_e^5\\    q_e^6\\
+    \end{bmatrix}
+\end{align}

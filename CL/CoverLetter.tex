@@ -1,0 +1,90 @@
+%
+% harvard-letter.tex - an example latex file to illustrate harvardletter.cls
+%
+% Copyright 2019, Ahmad Zareei (ahmad@seas.harvard.edu)
+%
+
+
+\documentclass[11pt]{harvardletter}
+\usepackage{color}
+\usepackage{soul}
+
+
+\newcommand{\EM}[1]{\noindent \color{cyan} (EM: #1)\normalcolor}
+\newcommand{\KB}[1]{{\color{red}{Katia: #1}}}
+\newcommand{\del}[1]{\noindent \color{red} \st{#1}\normalcolor}
+
+% \name{\includegraphics{./Signature.eps}} % used as signature, if no signature is specified
+
+\signature{\vspace{-10mm}\includegraphics[height=0.4in]{Signature.eps} \\\textbf{Ariel Amir}\\ \textit{Thomas D. Cabot Associate Professor of Applied Mathematics and Applied Physics,} \\ \textit{School of Engineering and Applied Sciences,}\\ \textit{Harvard University} \\ \textit{Phone: (617) 495-5818}\\ \textit{Email: arielamir@seas.harvard.edu}}
+
+\date{} % if no date specified, today's date is used 
+
+% \subject{This is the subject of the letter} % optional subject line
+
+
+
+\begin{document}
+
+
+\begin{letter}{}
+  %              {Prof. ... .... \\ 
+  %              Harvard University\\ 
+  %              Cambridge, MA 02148}
+
+\hfill{March 21, 2021}
+\vspace{20mm}
+
+
+% \begin{table}
+%     \centering
+    \begin{tabular}{l l }
+        \small{Title:}  & \textbf{\small{Temporal Evolution of flow in Porous Materials: From Homogenization to Instability}} \vspace{2mm} \\ 
+        \small{Authors:}  & \small{Ahmad Zareei$^1$, Pan Deng$^1$, and Ariel Amir$^{1,2}$* (*corresponding author)} \vspace{2mm} \\
+        \small{Affiliations:} & \small{$^1$Harvard John A. Paulson School of Engineering and Applied Sciences, Harvard University} \\
+        & \small{$^2$Kavli Institute, Harvard University}
+    \end{tabular}
+% \end{table}
+
+\vspace{5mm}
+
+
+\opening{Dear Editor,}
+
+We are excited to submit our work, ``Temporal Evolution of flow in Porous Materials: From Homogenization to Instability'' for consideration as an article in the \emph{Physical Review Letters}. In this study, we demonstrate that ....
+
+
+
+As such, our study suggests that  
+
+
+
+For reviewers, we suggest the following experts:
+
+\textbf{Karen Alim},Max Planck Institute for Dynamics and Self-Organization, G\"ottingen, Germany, \texttt{k.alim@tum.de}
+
+
+
+
+
+\vspace{5mm}
+
+\underline{\textbf{\small{This material has not been published and is not under consideration for publication elsewhere.}}}
+
+\vspace{5mm}
+
+We thank you for your consideration and look forward to hearing from you.
+
+
+\vspace{5mm}
+
+\closing{Sincerely,}
+
+
+% \encl{manuscript.pdf}
+% \ps{Please see the enclosed file.}
+% \cc{Dr. Ahmad Zareei}
+
+\end{letter}
+
+\end{document}
