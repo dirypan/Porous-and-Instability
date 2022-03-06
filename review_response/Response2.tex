@@ -1,0 +1,389 @@
+%%//////////////////////////////////////////////////////////////
+%%
+%% P R E A M B L E
+%%
+%%//////////////////////////////////////////////////////////////
+\documentclass{article}
+
+%%==============================================================
+%% Packages=
+%%==============================================================
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{scicite}
+%\usepackage{citesort}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{graphics,amsfonts,amssymb,amsmath,latexsym}
+\usepackage{graphicx,subfig}
+\usepackage[ansinew]{inputenc}
+%\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{authblk}
+\usepackage{xr}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{float}
+\setlength\parindent{0pt}
+\usepackage{xr}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+
+
+
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[dvipsnames]{xcolor}
+
+% Color Edits
+\newcommand{\add}[1]{\noindent \color{blue} #1 \normalcolor}
+% \newcommand{\del}[1]{\noindent \color{red} \st{#1}\normalcolor}
+% \newcommand{\AM}[1]{\noindent \color{magenta} (AM: #1)\normalcolor}
+% \newcommand{\AZ}[1]{\noindent \color{purple} (AZ: #1)\normalcolor}
+% \newcommand{\PD}[1]{\noindent \color{cyan} (PD: #1)\normalcolor}
+
+
+%\usepackage{scicite}
+\usepackage{natbib}
+\bibliographystyle{unsrt}
+
+
+%%==============================================================
+%% New Commands
+%%==============================================================
+\newcommand{\Hline}{\rule{\linewidth}{.1mm}}
+%\newcommand{\RedColor}[1]{\noindent \color{red}  #1 \normalcolor}
+\newcommand{\Question}[1]{\noindent \color{black}\emph{#1}\normalcolor}
+\newcommand{\Answer}[1]{\noindent {\color{blue}{ #1}}\normalcolor}
+
+\newcommand{\AnswerQ}[1]{\noindent {\footnotesize {\color{blue}{ #1}}}\normalcolor}
+
+\renewcommand{\thepage}{R\arabic{page}}
+\renewcommand{\thesection}{R\arabic{section}}
+\renewcommand{\theequation}{R\arabic{equation}}
+\renewcommand{\thefigure}{R\arabic{figure}}
+\renewcommand{\thetable}{R\arabic{table}}
+\renewcommand{\thetable}{R\arabic{table}}
+
+\def\th{\theta}
+
+\newcommand{\bfphi}{\boldsymbol{\phi}}%
+
+\newcommand{\Hb}{\mathbf{\bar{H}}}
+
+\newcommand{\revised}[1]{\noindent\color{Blue}#1\normalcolor}
+
+\newcommand{\PD}[1]{\noindent \color{red} (PD: #1)\normalcolor}
+\newcommand{\EM}[1]{\noindent \color{magenta} (EM: #1)\normalcolor}
+\newcommand{\AZ}[1]{\noindent \color{purple}(AZ: #1)\normalcolor}
+
+\def\p{\textit{p.~}}
+\def\l{\textit{l.~}}
+%%==============================================================
+%% Setttings
+%%==============================================================
+\topmargin -0.5in
+
+
+\setlength{\textwidth}{6in} \setlength{\textheight}{8.25in}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{6.in}
+\setlength{\textheight}{8.5in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\oddsidemargin}{0mm}
+
+%%//////////////////////////////////////////////////////////////
+%%
+%% T I T L E    &    A U T H O R S
+%%
+%%//////////////////////////////////////////////////////////////
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+Response to the Reviewers' comments for manuscript \\
+(Tracking \#: LF18481): \\
+``Temporal evolution of flow in pore-networks: From homogenization to instability"
+}
+
+\author{Ahmad Zareei, Deng Pan, and  Ariel Amir
+}
+\date{}
+
+%%//////////////////////////////////////////////////////////////
+%%
+%% FIRST SENTENSE
+%%
+%%//////////////////////////////////////////////////////////////
+\begin{document}
+\maketitle
+
+\noindent In the following, we address each of the Referees' comments/suggestions (\emph{in italic}). All page/paragraph/line (\textit{p.},\ \textit{par.},\ \textit{l.},\ etc.) numbers refer to the revised paper. %In addition, while using the original numbering of figures/equations/references in the manuscript (\emph{e.g.}, Fig.~1, Fig.~2,...., Eq.~(1), Eq.~(2),..., [1], [2], ...),  we add prefix ``\emph{R}'' for figures/equations/references presented in this response to the Referees' comments (\emph{e.g.}, Fig.~R1, Fig.~R2, .... Eq.~(R1), Eq.~(R2), ..., Ref.~[R1], Ref.~[R2],...).
+% \centerline{(Tracking \#: LB15473 Deng)} 
+
+\vspace{5 mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ref 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent
+\Hline \\
+\textbf{Response to Reviewer B} \\
+\Hline
+\\
+
+% \centerline{Negative numbers are counted from the bottom of the page.}
+%({\color{orange}\mbox{------}})
+
+
+\Question{
+The only answer that I do not find completely satisfying is to this
+point: ``…since the authors have access to experimental setups, it
+would greatly improve this work if they could provide experimental
+proof of the phase transition in a real system." To what the authors
+answered: `` With regards to the experimental tests, all the authors of
+the current manuscript are theorists, and experimental studies of this
+work is out of our scope." 2/3 of the authors of this manuscript are coauthors of Reference [31],
+which presents experiments related to the results of the current
+manuscript. Actually, one of the co-first authors of this manuscript
+is also co-first author in [31]. I do not think that all publications
+in PRL should include experimental results, but in this particular
+case it is striking that the authors do not try to validate their
+theory having (apparently) all the experimental tools at hand.
+\newline
+To summarize, the main and unanimous criticism from the first round of
+review was if the paper was physically grounded. On the one hand, I
+think the authors have greatly improved the manuscript including more
+realistic models of physical erosion. However, on the other hand, I
+think the authors have missed the opportunity of including at least
+some preliminary experimental results that support their theory or at
+least to discuss in their answer why this was not possible.
+\newline
+Finally, whereas I do not strongly support publication in PRL, I do
+not oppose to it either, I leave the final decision to the editors.
+\newline}
+
+\Answer{We thank the referee for appreciating the more realistic physical
+models utilized in the revised version and the extended theoretical
+framework we used.
+With regards to the question about the potential experimental tests of
+the theory:
+We completely agree with the referee that performing experiments to
+test our theory is important. Unfortunately performing them is
+currently unfeasible for us, since the Amir group is a theory group
+and has no lab space.
+We would like to make some clarifications with regards to Ref. [31].
+In this work Dr. Shima Parsa, then a postdoc in the Weitz lab, had
+empirical observations relating the mean velocity and permeability as
+flow in a porous material is clogged with a polymer. Dr. Ahmad Zareii,
+working under the guidance of Prof. Ariel Amir, set out to explain the
+observed scaling using a combination of numerical simulations and
+analytical work, which led to a joint publication (Ref. [31] mentioned
+by the referee). Note that the experiments were performed by Dr. Parsa
+over the course of several years while she was at Harvard. Dr. Parsa
+has recently started as faculty at the Rochester Institute of
+Technology, and therefore the experimental system associated with Ref.
+[31] is no longer active at Harvard. We also resonated with the
+comments of Referee D: "Experiments are notoriously hard to perform
+and can not be produced easily, especially when the parameter space
+that needs to be explored is as wide as in this study (without
+considering the 3D and polar simulations in the supplementary). I
+believe that the results are convincing, and requiring an experiment
+is somewhat unrealistic for the scope of this study. In many ways,
+this study can trigger the community to search for this ordering
+parameter in existing experimental setups, which will advance the
+field further by exploring the role of flow rate to shear rate or mean
+pore size." Indeed, we hope that as Referee D mentioned our
+theoretical study will trigger further experimental work in the
+future.}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Review # 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{10 mm}
+\noindent
+\Hline \\
+\textbf{Response to Reviewer C} \\
+\Hline
+\\
+
+
+\Question{The work is greatly improved after revision, and many of the issues
+raised by the reviewers have been effectively addressed. In particular
+the consideration of nonlinear erosion models and the derivation of a
+more general local stability criterion address many of the concerns
+about generality and applicability, expressed by all referees.
+\newline
+For me, the modified work now achieves the level of significance that
+it can be published PRL and my suggestions for further changes are
+relatively minor. However, there would be significant advantages in
+publishing in PRE or PRFluids where the excellent Supplementary
+Material could be included in the body of the article.\newline}
+
+
+\Answer{We thank the reviewer for their thoughtful and thorough comments.}
+
+
+
+\vspace{0.5cm}
+\textbf{Comment C1}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+\Question{Having said that, the work does have a significant weakness in that
+the primary model studied is a power law and therefore scale-free. The
+scale-free nature is the primary reason why the local dynamics set the
+behavior of the entire network. The majority of interesting real-world
+cases will have a scale associated with them (e.g. a non-trivial
+dependence on flow-rate). In the more general case we will find that
+Eq. (3) and the condition described just after it will hold for some
+flow rates but not all. This dependence on flow rate (or applied
+pressure drop) is not well explained in the manuscript. Also, the new
+investigation of a tanh profile shows that intermediate states are
+possible - i.e. states that lie somewhere between homogenization and
+instability. It would be good for the manuscript to acknowledge some
+of these limitations of their result - which remains interesting.\newline}
+
+\Answer{We thank the reviewer for the valuable comment. Indeed our model has limitations. We have now expanded our conclusion to include such limitations as mentioned by the reviewer.
+
+
+admit scale free after Eq. 3
+
+If not parallel, g(r) can be more complex 
+
+acknowledge inbetween cases in the main text ...
+}
+ 
+
+
+
+\vspace{0.5cm}
+\textbf{Comment C2}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+
+\Question{In the abstract `First' in line 2 is a bit confusing as it isn't
+followed up with a `second' or similar.\newline}
+
+
+\Answer{We would like to thank the reviewer for carefully reading our manuscript. We removed `First' in the abstract to avoid any confusion.}
+%
+\\
+
+
+
+
+
+%
+    
+\vspace{0.5cm}
+\textbf{Comment C3}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+\Question{On page 2 column 1, in the shear model, it's unclear to me why
+moving from $\dot{m}$ to $\dot{r}$ would introduce an $r$ factor ($-\kappa$
+becomes $-\kappa r$). Also it would be nice to add a reference for the
+shear stress being proportional to $q/r^3$ - this is a standard result
+but it would improve readability for the PRL audience.
+\newline}
+
+\Answer{We would like to point out that for $n=3$ the network does not stay the same, since series connections are always moving toward homogenization, while parallel connections are staying in a constant proportion. This results in seeing differences between the statistics of the network at $t=0$ and the evolved network at later stages for $n=3$ (see Fig. 2 in the main text). Additionally, we expect the transition to happen at  approximate $n\approx3$ (see comment 2G for more details). We have now included this point in the main manuscript to avoid confusion.}
+%
+\\
+
+\Answer{From \p4 of the main text:}
+\AnswerQ{
+\begin{quote}
+    ``It is to be noted that while the flow ratio remains constant for parallel edges, the connection in series are evolving toward homogenization and that is why we find a difference between evolved network for $n=3$ and the network at $t=0$.''
+\end{quote}
+}
+
+
+
+
+\vspace{0.5cm}
+\textbf{Comment C3}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+\Question{Last line of page 3 - the parameter $L$ looks to be used without
+definition.}
+\\
+
+\Answer{We thank the reviewer for their careful comment. We have now included the definition in the main text.}%
+
+\AnswerQ{
+\begin{quote}
+    ``To understand the transition in network behavior during erosion, we focus on a simplified model with only two tubes \add{of the same length $L$} in parallel or series with a general erosion dynamics as $dr_{i}/dt = f(q_{i},r_{i}), i=1,2$ (Figs. \ref{fig:fig3}b-c)''   
+\end{quote}
+}
+
+
+
+
+
+\vspace{0.5cm}
+\textbf{Comment C4}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+\Question{It would be great to briefly explain the physical origin of the
+$r_1/r_2$ factor in equation 3 as this is such a significant part of the
+result. My interpretation is that it is because stability depends on
+the fractional change in conductance associated with a change in
+radius, and that the fractional change will be inversely proportional
+to the radius.\newline}
+
+\Answer{We thank the reviewer for their valuable recommendations. The physical origin the scale-free criteria $r_1/r_2$ turns out to be the result of power law dependence of conductance with respect to radius, meaning that our homogenization condition can be generalized to nonlaminar flow as well. The relevant part is attached. }
+\AnswerQ{
+\begin{quote}
+    ``In fact, this condition will hold for nonlaminar flow as long as $C\propto r^k (k > 0)$. The power law dependence of conductance with respect to radius leads to the scale-free criteria $r_1/r_2$. ''   
+\end{quote}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Review # 3 %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage 
+\vspace{10 mm}
+\noindent
+\Hline \\
+\textbf{Response to Reviewer D} \\
+\Hline
+\\
+
+\Question{This paper presents 2D and 3D pore-network models of single-phase flow through porous media, involving channel erosion. The erosion rate in a channel is modeled as a function of the flow rate through the channel and the radius of the channel.The manuscript presents an interesting transition in the behaviour of these models from a stabilizing behavior where narrow channels erode more quickly than wider ones (``homogenization'') to an unstable regime where all the flow ends up in a few pathways ``instability''). Overall I judge this to be an interesting paper that may be worth publishing in a journal such as PRFluids, but falls short of the level of impact required for PRL. I explain this below.  The manuscript has many strengths which include: - it's very clearly written and with excellent figures that clearly demonstrate the phenomena being explored; - good numerical modeling that includes 2D and 3D simulations in random and regular network topologies; - results which are universal within the class of models being considered here, being valid 2D and 3D and in regular and random networks; - a clear theory to explain the results using a local analysis,suggesting links between global and local dynamics even in quite complex systems; - links to flow in biological systems
+\newline}
+
+
+
+\Answer{We thank the reviewer for their careful reading of the manuscript and their constructive
+remarks.}
+
+
+
+\vspace{0.5cm}
+\textbf{Comment 3A}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+\Question{The weaknesses in the work include: the physical relevance of the model is not clear, except for the specific biological case ... more specifics in studies of models that are closest to this one are needed, particularly also mentioning the outcomes of those studies. Some of the model's (apparent) weaknesses are being a pure power law, its scaling with pressure is unphysical: the erosion rate in all channels merely increases uniformly with applied pressure, meaning that erosion occurs even at near-zero speed/stress; there is no onset threshold.\newline}
+
+\Answer{We appreciate the reviewers comment. The concern here is similar to comment 2F of Reviewer 2, and we repeat our reply here. Erosion in saturated granular materials occurs when the shear stress at the wall exceeds the cohesive strength of the solid matter. In the revised version, we study more realistic models including: (i) a model where the onset of erosion happens after reaching a threshold value; (ii) a model with a different (nonlinear) functional dependence on shear stress, where erosion starts after a certain threshold and eventually saturates to a maximum value which is determined by the maximal detachment rate of particles at the tube's boundary. We make predictions for both models using our analysis and find that the analytical results agree well with the numerical simulations. These results illustrate the generality of our model in relating to various physical models. (iii) Additionally, we expand our discussion before introducing the model to make a better connection with relevant studies of erosion. 
+We believe that these new results illustrate that the phase transition is a general effect, and that our analysis using the local dynamics model has the predictive power of identifying the phase transition condition. In the following we attach the relevant excerpts of the main text and the supplementary material.}
+
+
+\clearpage
+% \bigbreak
+
+% \bibliographystyle{unsrt}
+% \bibliography{ref}
+
+
+
+
+
+\end{document}

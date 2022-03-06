@@ -1,0 +1,22 @@
+
+
+Reviewers
+######################
+Karen Alim, Max Planck Institute, G\"ottingen, Germany, k.alim@tum.de
+Martin Blunt, Imperial College London, m.blunt@imperial.ac.uk
+Harvey Scher, Weizmann Institute of Science, harvey.scher@weizmann.ac.il
+Martin Bazant, Massachusetts Institute of Technology, bazant@mit.edu
+Arshad Kudrolli, Clark University, akudrolli@clarku.edu
+Shmuel Rubinstein, The Hebrew University of Jerusalem, shmuel.rubinstein@mail.huji.ac.il
+Yaniv Edery, Technion University, yanivedery@technion.ac.il
+
+
+
+
+##########################################################3
+
+
+
+Significance Statement
+#####################
+Fluid flow through porous materials undergoing a dynamical change in its network of microstructure is ubiquitous in nature and has numerous applications. We study the temporal evolution of such fluid flow networks and show that depending on the erosion dynamics, the network statistics may homogenize or become unstable. We quantify the phase transition and identify criteria to distinguish between these regimes and correctly predict the network's fate. Our results provide a route to connect local dynamics to bulk behaviors relevant for many environmental, biological, and industrial applications, and as a result of interest to the broad readership of PRL.

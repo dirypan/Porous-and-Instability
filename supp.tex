@@ -5,7 +5,7 @@
 %
 %   Copyright (c) 2014 The American Physical Society.
 %
-%   See the REVTeX 4 README file for restrictions and more information.
+%   See the REVTeX 4 README file for restrictions and more infor mation.
 %
 % TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
 % as well as the rest of the prerequisites for REVTeX 4.2
@@ -42,14 +42,14 @@ prstper,
 
 \usepackage[usenames, dvipsnames]{color}
 % Color Edits
-\newcommand{\EM}[1]{\noindent \color{red} (AA: #1)\normalcolor}
-\newcommand{\AZ}[1]{\noindent \color{blue} (AZ: #1)\normalcolor}
+
 
 \usepackage{braket}
 \usepackage{graphicx}% Include figure files
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}
 \usepackage[usenames, dvipsnames]{color}
+\usepackage{subfig}
 %\usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
@@ -62,8 +62,16 @@ prstper,
 %%height=10in,a5paper,hmargin={3cm,0.8in},
 %]{geometry}
 
-\newcommand{\KB}[1]{\noindent \color{magenta} (KB: #1)\normalcolor}
+\newcommand{\KB}[1]{\noindent \color{magenta} (KB: #1)\normalcolor} 
 
+
+
+\usepackage{xcolor}
+\newcommand{\DP}[1]{\noindent \color{cyan} (DP: #1)\normalcolor}
+% \newcommand{\AZ}[1]{\noindent \color{purple} (AZ: #1)\normalcolor}
+\newcommand{\add}[1]{\noindent \color{blue} #1 \normalcolor}
+\newcommand{\del}[1]{\noindent \color{red} \st{#1}\normalcolor}
+\newcommand{\AZ}[1]{\noindent \color{magenta} (AZ: #1)\normalcolor}
 \renewcommand{\thepage}{S\arabic{page}}
 \renewcommand{\thesection}{S\arabic{section}}
 \renewcommand{\thetable}{S\arabic{table}}
@@ -80,12 +88,12 @@ prstper,
 
 
 
-\title{Temporal Evolution in the Networks of Porous Materials:\\ From Homogenization to Instability}% Force line breaks with \\
+\title{Temporal Evolution of Erosion in Pore-Networks:\\ From Homogenization to Instability}% Force line breaks with \\
 % \thanks{A footnote to the article title}%
 
 \author{Ahmad Zareei}
 \affiliation{ School of Engineering and Applied Sciences, Harvard University, Cambridge, MA, 02148}%\altaffiliation[]{SEAS, Pierce Hall}%Lines break automatically or can be forced with \\
-\author{Pan Deng}%
+\author{Deng Pan}%
 \affiliation{ School of Engineering and Applied Sciences, Harvard University, Cambridge, MA, 02148}%\altaffiliation[]{SEAS, Pierce Hall}%Lines break automatically or can be forced with
 \author{Ariel Amir}%
 \email{arielamir@seas.harvard.edu}
@@ -103,18 +111,19 @@ prstper,
 \maketitle
 \section{Simulation algorithm}
 %
-In our simulations, we tested two types of network: a (i) diamond-grid network, and a (ii) topologically random network. In the diamond-grid network, we choose $N_x=200$ edges in the horizontal direction and $N_y=100$ edges in the vertical direction. The random network is created using uniformly distributed points with on average $N_x\times N_y$ edges in the horizontal and vertical directions. Note that the randomly distributed points are connected using a Delaunay triangulation. The diameter of each edge is sampled from either a uniform distribution in $r\in[1,14]$, log-normal distribution with $\mu=3,\sigma=0.48$, or truncated normal distribution with $\mathcal{N}(\mu=7.0,\sigma=3.6)$.   The external flow pressure is applied horizontally from left to right. An external pressure is then considered between the left-most nodes and the rightmost nodes ($p_\text{left}=10,p_\text{right}=0$). Assuming a Poiseuille flow in each edge, the fluid flow $q$ and pressure difference $\delta P_e$ in each edge is related through $q_e = C_e \delta P_e$, where $C_e = \pi r^4_e/8\mu L_e$,  $L_e$ is the length of the tube, and $\mu$ is the viscosity of the fluid. Let $\Delta$ be the transpose of the network's oriented incidence matrix. Note that the orientation of each edge is arbitrary since it only determines the positive direction of flow in that edge. Define $\ket{q_e}$ as the vector of flow through all the edges, then we have $\ket{q_e} = C_e\Delta \ket{P_n}$ where $\ket{P_n}$ is the vector of pressure at all the nodes. With a given boundary condition, we solve the equation through a modified nodal analysis as follows. The conservation of mass at each node can be written as 
+In our simulations, we tested two types of networks: (i) a topologically ordered (diamond-grid) network, (ii) a topologically random network (2d and 3d). 
+% In the diamond-grid network, we choose 100 nodes in the horizontal direction $N_x=100$ and 50 nodes in the vertical direction $N_y=50$ which in total results in $20,000$ edges in the network (see \cite{githubrepo}). 
+The 2d random network is created using uniformly distributed points with on average $N_x\times N_y$ nodes in the horizontal and vertical directions where the randomly distributed points are connected using a Delaunay triangulation. The 3d random network similarly is obtained by a uniform distribution of $N_x\times N_y \times N_z$ points in space, where the the points are connected using Voronoi cell initialization. The diameter of each edge is sampled from either a uniform distribution with $\mathcal{U}(1,14)$, log-normal distribution with $\mu=3,\sigma=0.48$, or truncated normal distribution with $\mathcal{N}(\mu=7.0,\sigma=3.6)$, where all of the distributions have a coefficient of variation close to $0.5$.  An external pressure is considered between the left-most nodes and the rightmost nodes ($p_\text{left}=10,p_\text{right}=0$). For each edge, assuming a Poiseuille flow, the fluid flux  $q$ and pressure difference $\delta P_e$ are related through $q_e = C_e \delta P_e$, where $C_e = \pi r^4_e/8\mu L_e$,  $L_e$ is the length of the tube, and $\mu$ is the viscosity of the fluid. We define $\vec{q}_e$ as the vector of fluid flux through all the edges, and as a result $\vec{q}_e = \mathbf{C} \mathbf{D}\vec{P}_n$ where $\vec{P}_n$ is the vector of pressure at all the nodes, $\mathbf{D}$ is the transpose of the network's oriented incidence matrix, and $\mathbf{C}$ is the diagonal matrix of edge conductances $\mathbf{C}_e = \text{diag} \left( C^{(1)}_e, C^{(2)}_e, \cdots,C^{(N_e)}_e\right)$. The orientation (or direction) of an edge is arbitrary selected, and it only determines the positive direction for the fluid flow in that edge. Next, we  use conservation of mass at the nodes to solve for the network pressure/flux at the nodes/edges. The conservation of mass at each node is 
 %
-
 \begin{align}
-    \ket{q_n} = \Delta^\top \mathbf{C} \Delta \ket{P_n}, \label{eq:governeing}
+    \vec{q}_n = \mathbf{D}^\top \mathbf{C} \mathbf{D} \vec{P}_n, \label{eq:governeing}
 \end{align}
 %
-where $\mathbf{C} = \text{diag}\left( C^{(1)}_e, C^{(2)}_e, \cdots,C^{(N_e)}_e\right)$ is a diagonal matrix of edge conductances, and $\ket{q_n}$ is the vector of total incoming flow to each node. Note that total incoming flow to an internal node is zero inside the network due to the conservation of mass, and is only non-zero at the boundary nodes. Renumbering the boundary nodes to $1,2,\cdots, N_{B}$, we can partition Eq. \eqref{eq:governeing} to obtain 
+where $\vec{q}_n$ is the vector of total incoming flow to each node. The total incoming flow to an internal node is zero inside the network due to the conservation of mass, and can only be non-zero at the boundary nodes. Without loss of generality, we renumber the boundary nodes to $1,2,\cdots, N_{B}$, where $N_B$ shows the total number of nodes at the boundary. We re-partition Eq. \eqref{eq:governeing} to obtain 
 
 \begin{align}
- \begin{bmatrix} {\Delta_{b}}^\top \mathbf{C} {\Delta_{b}}  & \vline &    {\Delta_{b}}^\top \mathbf{C} {\Delta_{n}} \\ \hline  
-    {\Delta_{n}}^\top \mathbf{C} {\Delta_{b}} & \vline & {\Delta_{n}}^\top \mathbf{C} {\Delta_{n}}
+ \begin{bmatrix} {\mathbf{D}_{b}}^\top \mathbf{C} {\mathbf{D}_{b}}  & \vline &    {\mathbf{D}_{b}}^\top \mathbf{C} {\mathbf{D}_{n}}\\ \hline   
+    {\mathbf{D}_{n}}^\top \mathbf{C} {\mathbf{D}_{b}} & \vline & {\mathbf{D}_{n}}^\top \mathbf{C} {\mathbf{D}_{n}}
     \end{bmatrix} \begin{bmatrix} P^{BC}_1 \\ P^{BC}_2 \\ \vdots \\ P_{N_B} \\  \hline  P_{N_B+1} \\ \vdots \\ P_{N_n}
     \end{bmatrix} = \begin{bmatrix} q^{BC}_1 \\ q^{BC}_2 \\ \vdots \\ q^{BC}_{N_B} \\ \hline  0 \\ \vdots \\ 0\end{bmatrix} \to 
     \begin{bmatrix} 
@@ -124,46 +133,48 @@ where $\mathbf{C} = \text{diag}\left( C^{(1)}_e, C^{(2)}_e, \cdots,C^{(N_e)}_e\r
     \end{bmatrix} = \begin{bmatrix} q^{BC}_1 \\ q^{BC}_2 \\ \vdots \\ q^{BC}_{N_B}  \\ \hline  0 \\ \vdots \\ 0\end{bmatrix}, 
 \end{align}
 %
-where $\mathbf{A}_{st} = \Delta^\top_s \mathbf{C}\Delta^\top_t$ and  $s,t\in\left\{a,b\right\}$. In summary the above equations simplifies to 
+where $\mathbf{A}_{st} = \mathbf{D}^\top_s \mathbf{C}\mathbf{D}^\top_t$ and  $s,t\in\left\{a,b\right\}$. The first $N_B$ elements of the pressure vector (i.e., $P_1, \cdots, P_{N_B}$) represent the pressure at the boundary nodes and the rest represent the pressure for the internal nodes. In summary the above equations can be written as a combination of two set of linear equations 
 %
+\begin{subequations}\label{main-solve-eq}
 \begin{align}
-    \begin{cases} 
-        \mathbf{A}_{bb} \ket{P_{BC}} + \mathbf{A}_{bn}  \ket{P} = \ket{q_{BC}}, \\
-    \mathbf{A}_{nb}\ket{P_{BC}} +  \mathbf{A}_{nn} \ket{P} = 0. 
-    \end{cases} 
+%     \begin{cases} 
+  & \mathbf{A}_{bb} \vec{P}_{BC} + \mathbf{A}_{bn}  \vec{P} = \vec{q}_{BC}, \label{maina} \\
+& \mathbf{A}_{nb}\vec{P}_{BC} +  \mathbf{A}_{nn} \vec{P} = 0. \label{mainb}
+%     \end{cases} 
     % \\ \mathbf{A}_{nn} \ket{P_n} =- \mathbf{A}_{nb}\ket{P_{BC}} 
-    \label{eq:main-network}
-\end{align}
+    % \label{eq:main-network}
+ \end{align}
+\end{subequations}
 %
-Solving the above equations results in the nodes' pressure and also the fluid flux at the boundary nodes. With the flux at each edge, $q_e$, the increase (decrease) of tube radius under erosion (clogging) is obtained as 
+where $\vec{P}_{BC} = [P^{BC}_1, \cdots, P^{BC}_{N_B}]^\top$ is the boundary nodes pressure vector, $\vec{q}_{BC} = [q^{BC}_1, \cdots, q^{BC}_{N_B}]^\top$ is the boundary nodes incoming fluid flux vector, and $\vec{P} = [P_{N_B+1}, \cdots, P_{N_n}]^\top$ is the unknown pressure vector for the rest of the nodes. If the pressure at the boundary is given,  we can use Eq. \eqref{mainb} to solve for the internal pressure values $\vec{P}$, and then use Eq. \eqref{maina} to find the required flux at the boundary nodes $\vec{q}_{BC}$. However, if fluid flux vector at the boundary nodes is given (i.e., $\vec{q}_{BC}$ is known), we need to simultaneously solve  Eqs. \eqref{maina} and \eqref{mainb} to find the boundary pressure vector  $\vec{P}_{BC}$ and internal nodes pressure vector $\vec{P}$. In either case, solving Eq. \eqref{main-solve-eq}  results in the nodes' pressure vector and also the fluid flux vector at the boundary nodes. The fluid flux at each edge can then be calculated using  $\vec{q}_e=\mathbf{C}_e \mathbf{D} \vec{P}_n$. Next, given the flux at each edge  $q_e$, we increase (decrease) the edge radius under erosion (clogging) using 
 %
 \begin{align}
-    \frac{dr_e}{dt} \propto \pm  \frac{q_e}{r_e^n}.
+    \frac{dr_e}{dt} \propto \pm  \frac{q^m_e}{r_e^n},
 \end{align}
 %
-We use simple forward Euler for time integration. For each iteration, we choose the time step $dt$ so that $\max(dr_e) = 0.1 r_0$, where $r_0$ is the smallest radius among all edges.
+and re-iterate the process to solve for the new fluid flux vector. We use a simple forward Euler for time integration. For each iteration, we choose the time step $dt$ so that $\max(dr_e) = 0.1 r_0$, where $r_0$ is the smallest radius among all edges. 
+% Note that $r_{ij} (t+\delta t)  = r_{ij} (t)  + (\alpha \delta t)  q_{ij} (t)/ r^n_{ij} (t) $, where the coefficient $\alpha \delta t$ is chosen such that the maximum change in the radius at each time step is smaller than one-tenth  of the smallest tube's radius i.e. $\max (\Delta r_{ij}) \leq r_\text{min}/10$ of the smallest radius at the initial configuration.  
+This condition guarantees that at each step a small amount of material is eroded and there is no sudden change in the network. We further test the convergence by decreasing $\max(\Delta r_{ij})$ to half and we observe that the average relative change in the flux vector is $\approx 1.2\%$, and the PDFs remain intact without any notable change. The network size for the 2d/3d networks is $N_x=100,N_y=50$/$N_x=50,N_y=12, N_z=12$ unless mentioned otherwise. In either case, the network has an order of $10^3$ edges. \add{Note that the physical assumption of low Reynolds regime Re$\ll$1 at all times ensures that the Poisoulle flow assumption remains valid. Additional dimensionless transport numbers such as the P\'eclet number (ratio of advection to diffusion) or the Damkohler number (ratio of chemical reaction rate to the transport phenomena rate) are assumed to be respectively very large and very small, resulting in advection to be much stronger than diffusion and chemical reaction.  It is to be noted that considering diffusion or chemical reactions might change the dynamics of erosion as it requires tracking a secondary concentration field that might affect the local erosion law.} The code is publicly available in a GitHub repository \cite{githubrepo}. 
 
-\newpage
-\section{Additional Numerical Result}
-%
-\begin{figure}[h]
-    % \centering
-    \includegraphics[width = 0.75\textwidth]{Figs/Fig2_random-low.png}
-    \caption{Ahmad's version: Erosion in a topologically random network of pipes. The first row shows the initial condition at $t=0$. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}
-\end{figure}
-%
 
+%
+% \begin{figure}[h]
+%     % \centering
+%     \includegraphics[width = 0.75\textwidth]{Figs/Fig2_random-low.png}
+%     \caption{Ahmad's version: Erosion in a topologically random network of pipes. The first row shows the initial condition at $t=0$. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}
+% \end{figure}
+%
 \newpage
-\section{Analytical results}
+\section{Analytical results for fluid flux EXP-tail PDF in a Diamond Network}
 %
 \label{sec:analytical}
 %
-As described in the main text, the PDF of flow in a topologically disordered network of tubes is the same as a structured diamond grid when the radius of the tubes is highly disordered. In this section, we show that the observed exponential distribution of fluid flux can be described using a mean-field approach on a structured grid. Basically, the random distribution of the diameters along with the conservation of mass in the network are the two main ingredients resulting in an exponential tail distribution. In a diamond grid, the incoming flow to a node is redistributed among the outgoing edges (since fluid mass is conserved). Due to the randomness in the tube's diameter, one can imagine that the redistribution of the incoming flow to a node between the outgoing edges is random variable. The only condition required to be hold here is that the incoming flux should be equal to the outgoing flux. This model for the flow can be mapped one to one to the problem of force fluctuations in a bead pack \cite{liu1995force,coppersmith1996model,alim2017local} as shown in Fig. \ref{grid-result}. In a bead pack, the force at each layer is redistributed to the next layer where the total force exerted on the next layer should equal to that of the previous layer. 
+As described in the main text, the PDF of flow in a topologically disordered network of tubes takes the same form  as in a  structured diamond grid. For completeness, here we repeat the derivation of Refs. \cite{liu1995force,coppersmith1996model,alim2017local} which  show that the observed exponential distribution of fluid flux can be described using a mean-field approach on a structured grid. Basically, the random distribution of the diameters along with the conservation of mass in the network are the two main ingredients resulting in an exponential tail distribution. In a diamond grid, the incoming flow to a node is redistributed among the outgoing edges (since fluid mass is conserved). Due to the randomness in the tube's diameter, the redistribution of the incoming flow to a node between the outgoing edges is random variable.  This model for the flow can be mapped one to one to the problem of force fluctuations in a bead pack \cite{liu1995force,coppersmith1996model,alim2017local} as shown in Fig. \ref{grid-result}. In a bead pack, the force at each layer is redistributed to the next layer where the total force exerted on the next layer should equal to that of the previous layer. 
 %
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.75\textwidth]{./Figs/grid-analytica.eps}
-  \caption{(a) Schematic of diamond grid network of tubes. The incoming flow to each node is redistributed among the outgoing edges. The thickness of the lines shows the fluid flux transferred in that edge. (b) Schematic diagram showing beads (represented with nodes) and their contacts to the neighboring sites (represented with edges). The thickness of the edges show the weight transferred through that contact.} \label{grid-result}
+  \includegraphics[width=.75\textwidth]{FigS1.pdf} % grid-analytica
+  \caption{(a) Schematic of a  diamond grid network of tubes. The incoming flow to each node is redistributed among the outgoing edges. The thickness of the lines shows the fluid flux transferred through that edge. (b) Schematic diagram showing beads (represented with nodes) and their contacts to the neighboring sites (represented with edges). The thickness of the edges show the force transferred through that contact.} \label{grid-result}
 \end{figure}
 %
 Given the above conditions, the flow at layer $L+1$ at node $j$ can be obtained as 
@@ -172,23 +183,24 @@ Given the above conditions, the flow at layer $L+1$ at node $j$ can be obtained 
   q(L+1,j) = \sum_i w_{ij} q(L,i) = w_{i,i+1} q(L,i+1) + w_{i,i} q(L,i), \label{total-flow}
 \end{align}
 %
-where $w_{ij}$ shows the weights by which the flow is redistributed. Note that since the total fluid flux is conserved, then  $\sum_{j} w_{ij} = 1$. 
+where $w_{ij}$ shows the weights by which the flow is redistributed, and $\sum_{j} w_{ij} = 1$ since the total fluid flux is conserved. 
 % Next, we assume that the weights $w_{ij}$ are drawn from a distribution $\eta(w)$. Since $\eta(w)$ is a distribution, then $\int \eta(w) dw = 1$. Furthermore, since $\sum_jw_{ij} = 1$, we can conclude that
 %
 %\begin{align}
 %  \sum_j w_{ij}=1 \to N {E}[w_{ij}] = 1 \to E[w_{ij}] = 1/N \to {\int w\eta(w) dw = 1/N}
 % \end{align}
 %
-Assuming a general distribution of $\eta(w)$, we can use the mean-field approximation to find the distribution of $q$ at the layer $L$, i.e., $p_L(q)$. The values of $q(L,i)$ are not independent for neighboring
-sites; however, in our mean-field approximation we ignore such
-correlations. We find
+Assuming a general distribution of for the weights, $\eta(w)$, we can use a mean-field approximation to find the distribution of $q$ at the layer $L$, i.e., $p_L(q)$, as 
 %
 \begin{align}
   p_L (q) = \prod_{j=1}^N \left\{ \int_0^1 d w_j \eta(w_j) \int_0^{\infty} dq_j p_{L-1}(q_j)\right\} \times \delta \left( \sum_j w_j q_{j} - q \right),
 \end{align}
 %
 % The only approximation in the above equation is that we neglect the possible correlation between the values of $q$ among ancestors. 
-where $N$ is the number of outgoing edges (e.g., in our structured diamond grid $N=2$) and $\delta(\cdot)$ is the Kronecker delta function. Note that the constraint that $q$'s emanating downward should add up to one is in the definition of $\eta(w)$. Taking the Laplace transform of the above equation and defining $\tilde p(s) & \equiv \int_0^{\infty} p(q) e^{-qs} dq$ we obtain
+where $N$ is the number of outgoing edges (e.g., in our structured diamond grid $N=2$) and $\delta(\cdot)$ is the Dirac delta function. 
+% The constraint that $q$'s emanating downward should add up to one is accounted for through the definition of $\eta(w)$. 
+% The values of flux at each layer $q(L,i)$ are not independent for neighboring sites; however, in our mean-field approximation, we ignore such correlations.  
+Taking the Laplace transform of the above equation and defining $\tilde p(s)  \equiv \int_0^{\infty} p(q) e^{-qs} dq$ one obtains
 %
 % \begin{align}
  % \tilde P(s) & \equiv \int_0^{\infty} P(Q) e^{-Qs} dQ\\
@@ -205,41 +217,450 @@ where $N$ is the number of outgoing edges (e.g., in our structured diamond grid 
   {\tilde P_L(s) = \lp  \int_0^1 d w \eta(w) \tilde P_{L-1}(s w)  \rp^{N}}. \label{eq:main-laplace}
 \end{align}
 %
-The probability distribution at the layers converges to a distribution $\tilde P(s)$. The final solution for a structured diamond grid with two neighboring sites becomes $p(q) = 4q\exp(-2q)$ \cite{liu1995force,coppersmith1996model,alim2017local}, which is a distribution with an exponential tail. 
+The above equation gives a recursive relation for the Laplace transformed of fluid flux PDF, $\tilde P_L(s)$, where it gradually converges to a distribution $\tilde P(s)$ from which the PDF of fluid flux can be obtained. Solving the above equation for a structured diamond grid network, one finds that the converged PDF of the fluid flux becomes $p(q) = 4q\exp(-2q)$ \cite{liu1995force,coppersmith1996model,alim2017local}, which is an exponential tailed distribution. 
 
 
-
+% \begin{figure}[h]
+    % \centering
+%     \includegraphics[width=0.75\textwidth]{Figs/randomNetworkErosion3.pdf}
+%     \caption{Deng's version: Erosion in a topologically random network of pipes. The initial condition is shown with the label $t=0$ in the first row. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$ or twice the initial average radius. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}% 
+% \end{figure}
 
 \newpage
-
-\begin{figure}[h]
+\section{Robustness to topology, initial condition, and boundary condition}
+% 
+In order to check the robustness of our results with respect to the topology of the network, we run our simulations on a three-dimensional random network with Voronoi cell initialization of nodes in space (Fig. \ref{SIfig:fig2-3d}), and also for a two dimensional topologically ordered network with a diamond grid (Fig. \ref{fig:fig2-diamond}), where  both networks are initialized with a uniform random distribution for the diameter of the tubes. We find that regardless of the topology of the network, an erosion dynamics with $n>3$ results in a homogenized network, while $n<3$ results in the channelization instability. We further check the effect of initial randomness on the fate of the network. We use a two-dimensional diamond-grid network with a narrow uniform initial distribution of tube diameters around an average diameter $d_0$ with only a very small variation ($3\%$), i.e., the tube diameters are sampled from a uniform distribution with $\mathcal{U}(d_0(1-\epsilon), d_0(1+\epsilon))$. We again find that for the networks with $n<3$ channels are formed, while for $n>3$ the network stays homogenized. \add{In addition to the network topology and initial condition, we test the robustness of our results to changes in the boundary condition. We choose a circular domain, with the central node being the inlet and all the nodes at the outer boundary being outlets. Similar to the transition reported for the square
+domain, we find a phase transition at the predicted power which shows that our analysis is independent of the geometry (Fig.~\ref{SIfig:fig2-3d_circular}). }
+%
+\begin{figure}[htp]
+     % \centering
+      \includegraphics[width = 1.0\textwidth]{FigS2.pdf}
+     \caption{Erosion in a topologically random 3D network of tubes with $N_x=20, N_y=12, N_z=12$ points for Voronoi cell initialization and an initial uniform broad distribution of tube diameters randomly sampled from a uniform distribution with $\mathcal{U}(1,14)$. Snapshots of the network, PDF of normalized fluid flux $q/\langle q \rangle$, and normalized edge radius distribution $r/\langle r \rangle$ at the initial time $t=0$, and also after $N$ erosion steps for different powers of erosion $n$ are shown. We stop the erosion after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on $dr/dt = \alpha q/r^n$ where different powers of $n$ correspond to different models of erosion.}\label{SIfig:fig2-3d}
+ \end{figure}
+%
+\begin{figure}[htp]
     % \centering
-    \includegraphics[width=0.75\textwidth]{Figs/randomNetworkErosion3.pdf}
-    \caption{Deng's version: Erosion in a topologically random network of pipes. The initial condition is shown with the label $t=0$ in the first row. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$ or twice the initial average radius. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}
+ \includegraphics[width=0.75\textwidth]{FigS3.pdf} % Fig2-Sdiamond.pdf
+     \caption{Erosion in a diamond grid network with $N_x=100, N_y=50$ randomly distributed nodes and an initially broad  distribution of tube diameter randomly sampled from a uniform distribution with $\mathcal{U}(1,14)$. The initial condition is shown with the label $t=0$ in the first row. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$ or twice the initial average radius. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2-diamond}% 
+\end{figure}
+%
+\begin{figure}[htp]
+    % \centering
+ \includegraphics[width=0.72\textwidth]{FigS4.pdf}
+     \caption{Erosion in a structured diamond grid network with $N_x=50, N_y=50$ and an initially narrow distribution of tube diameters randomly sampled from a uniform distribution with  $\mathcal{U}\left(d_0(1-\epsilon), d_u(1+\epsilon)\right) $ where  $d_0$ is the average diameter and $\epsilon=0.03$. The initial condition is shown with the label $t=0$ in the first row. Each row afterward corresponds to the simulation result after $N$ steps such that $\langle r_{t=N}\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$ or twice the initial average radius. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion. The first column is a snapshot of the pore network, the second column is the PDF of normalized fluid flux $q/\langle q \rangle$, and the last column is the PDF of normalized radius $r/\langle r\rangle$.}\label{fig:fig2}% 
+\end{figure}
+%
+\begin{figure}[htp]
+     % \centering
+      \includegraphics[width = 0.70\textwidth]{./circular3.pdf}
+     \caption{\textcolor{blue}{Erosion in a topologically random 3D network of tubes with a circular topology with $N = 3000 $ randomly distributed nodes and an initial uniform broad distribution of tube diameters randomly sampled from a uniform distribution with $\mathcal{U}(1,14)$. Shown are snapshots of the network, PDF of normalized fluid flux $q/\langle q \rangle$, and normalized edge radius distribution $r/\langle r \rangle$ at the initial time $t=0$, and also after $N$ erosion steps for different powers of erosion $n$. We stop the erosion after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion.}}\label{SIfig:fig2-3d_circular}
+ \end{figure}
+%
+
+
+\clearpage
+\section{Erosion with a threshold}
+%
+\add{In order to make our erosion model more realistic, we modify the model as  
+%
+\begin{align}
+    \frac{dr}{dt } = \begin{cases} q^m/r^n - \beta & q^m/r^n\geq \beta\\
+    0 & q^m/r^n<\beta
+    \end{cases} \label{eq:thresh}
+\end{align}
+%
+where $\beta$ is the threshold for the onset of erosion. We pick $\beta = 0.25\langle q^m/r^n\rangle $ and $\beta = 0.9 \langle q^m/r^n\rangle$ corresponding to a small and a large threshold value. In both cases, we ran our simulations for different values of $m$ and $n$, and found that different behaviors of homogenization and channelization persists (see Fig. \ref{fig:figthresh1}). The result can be explained by applying the general condition for the phase transition as discussed in the main text. Following the same argument, it can be shown that the homogenization condition (Eq. 3 in the main text) is equivalent to the condition 
+%
+\begin{align}
+4m-n-1 < -\frac{\beta}{q^m/r^n}.    
+\end{align}
+%
+which can be found using $g(r) = ({\pi \Delta p}/{8\mu L})^{m} r^{m-n} - \beta $ assuming a constant pressure boundary condition. Note that the condition above depends on the value of $q^m/r^n$ which varies over the network edges. Taking the mean value of $q^m/r^n$ to find an average value for the transition condition, the transition line becomes $4m-n=0.75$ and $4m-n=0.1$ for the small and large thresholding value respectively. As a result the thresholding condition slightly shifts the intercept of the transition line while the slope remains the same. In Fig.~\ref{fig:figthresh1}, we plot the new transition lines, where the prediction for the phase boundaries matches well with the simulation results.}
+
+
+
+\begin{figure}[htp]
+    \centering
+ \includegraphics[width=0.45\textwidth]{./Fig_thres0.25.pdf}
+  \includegraphics[width=0.45\textwidth]{./Fig_thresh0.9.pdf}
+     \caption{\add{Evolution of a randomly initialized network for various powers of $m$ and $n$ in Eq. \eqref{eq:thresh} with a small threshold value of $\beta = 0.25\langle q^m/r^n\rangle $ (left figure), and a large threshold value of $\beta = 0.9\langle q^m/r^n\rangle$ at $t=0$. The network is randomly initialized with $50\times 50$ randomly distributed pores. The black line shows the theoretical transition boundary between channelization instability and homogenization obtained using local dynamics model, i.e., $4m-n=0.75$ (left figure), and $4m-n=0.1$ (right figure).} }\label{fig:figthresh1}% 
+\end{figure}
+
+% \begin{figure}[htp]
+%     % \centering
+%  \includegraphics[width=0.72\textwidth]{Fig_thres0.25.pdf}
+%      \caption{\textcolor{blue}{Evolution of a randomly initialized network for various powers of $m$ and $n$ in Eq. \eqref{eq:thresh} with a small thresholding value of $\beta = 0.25\langle q^m/r^n\rangle $ at $t=0$. The network is randomly initialized with $50\times 50$ randomly distributed pores. The black line shows the theoretical transition boundary between channelization instability and homogenization obtained using simplified model, i.e., $m=(n+1)/4$.} }\label{fig:figthresh1}% 
+% \end{figure}
+
+% \begin{figure}[htp]
+%     % \centering
+%  \includegraphics[width=0.72\textwidth]{Fig_thresh0.9.pdf}
+%      \caption{\textcolor{blue}{Evolution of a randomly initialized network for various powers of $m$ and $n$ in Eq. \eqref{eq:thresh} with a large thresholding value of $\beta = 0.9\langle q^m/r^n\rangle $ at $t=0$. The network is randomly initialized with $50\times 50$ randomly distributed pores. The black line shows the theoretical transition boundary between channelization instability and homogenization obtained using simplified model, i.e., $m=(n+1)/4$.}}\label{fig:figthresh2}% 
+% \end{figure}
+
+
+
+
+\newpage 
+\newpage 
+\newpage
+\section{Average Change in the  Order parameter}
+%
+In order to quantify the network behavior shown in Fig. 4, we calculate the change in the order parameter for different $m,n$ averaged over 100 simulations with different random initial conditions, and the heat-map results are shown in Fig.~\ref{fig:fig4_SI-2}. The positive or negative change in the order parameter shows the network's change toward homogenization or channelization. The boundary between the two phases (homogenization and channelization) calculated using the simple model introduced in the main text is shown with a solid black line here, and it can be seen that it agrees well with the order parameter change. 
+%
+\begin{figure}[htp]
+    % \centering
+    \includegraphics[width = 0.70\textwidth]{FigS5.pdf}
+    \caption{The heat map for the average change in the order parameter corresponding to the networks shown in Fig. 4 of the main text. The order parameter shown in the heat map here is an average of 100 different simulations with different random initialization of tube diameters. The black line shows the boundary between two phases calculated using the model introduced in the main text.}\label{fig:fig4_SI-2}
 \end{figure}
 
 
 
-% \clearpage
-% \newpage
-\bibliography{ref}% Produces the bibliography via BibTeX.
+
+\section{Clogging Dynamics}
+% 
+% \textit{}-- 
+Besides erosion, another change in the network is the deposition/sedimentation of material on the boundary walls of the porous material. We refer to this dynamical change a ``clogging'' process as opposed to erosion. Contrary to erosion, the clogging behavior may cause some edges to block which effectively alters the network of connectivity and network behavior. This change in the connection between nodes through edges getting blocked can drastically alter porous structure behavior, e.g., causes a huge difference between effective and true porosity \cite{shima2021}. Despite the drastic change of network with blockages, we can still focus on the \textit{initial} change in the order parameter. The derivative of order parameter can be written as 
+%
+\begin{align}
+    \frac{d\mathcal{O}}{dt} = \sum_{ij} \sum_{kl} \frac{\partial \mathcal{O}}{\partial q_{ij}} \frac{\partial q_{ij}}{\partial C_{kl}}  \frac{\partial C_{kl}}{\partial t} \label{eq:order-derivative}
+\end{align}
+%
+where the last term changes sign from erosion to clogging, i.e., $\partial C_{kl}/\partial t = \pm \alpha \pi q^m_{kl} /r_{kl}^{n-3}\mu l_{kl}$ for erosion and clogging respectively. As a result, the magnitude of change in the order parameter equals that of erosion. Note that in Eq. \eqref{eq:order-derivative}, the second term depends on the network topology, and pore throat clogging results in the change of network topology at later times.
+% The pore throat blockages results in the divergent of clogging results from just the negative of erosion. 
+At short times, however, similar to the erosion, a phase transition exists at $n=3$. When  $n<3$ the network moves toward homogenization during the clogging process and when $n>3$ the flow moves toward the development of channeling instability. At later times, this initial trend, however, might not hold true due to the aforementioned complex changes in the connectivity network during the clogging process.
+
+
+
+% \section{Generalization of the toy model}
+% %
+% A general erosion in the edges of a network can be written as 
+% %
+% \begin{align}
+%     \frac{dr}{dt} = f(q,r), \label{eq:general}
+% \end{align}
+% %
+% where $q$, and $r$ are the fluid flux and the radius of an edge, and $f(\cdot)$ represents the function that determines the physics of erosion. Note that if $f(q,r)>0$ the edge is eroding, and if $f(q,r)<0$, the edge is clogging. In this section, we study the fate of our toy model, given such general erosion law.
+
+% \textbf{Parallel Tubes: }
+% %
+% We first consider parallel edges with an arbitrary erosion function, i.e., Eq.~\eqref{eq:general}. In the parallel case, both tubes experiencing the same pressure difference $\delta p$, and using Darcy's law the flux in each tube $q_i = \beta r_i^4 \delta p$, where $\beta = \pi/8\mu L$, $L$ being the length of the tube, $\mu$ the viscosity of the fluid, and $i=1,2$ correspond to the edges. We define $g(r_i) = f(q_i, r_i)$ and as a result the erosion dynamics can be written as $dr_i/dt = g(r_i)$. Without loss of generality we assume $r_1>r_2$. The fluid flux in the tubes can be obtained using $q_i/q = \tilde C_i $, where $q$ is the total flux, and $\tidle C_i = C_i/(C_1+C_2)$ is the relative conductivity, and $C_i = \pi r_i^4/8\mu L $ is the tubes conductance. In order to find the evolution of the fluid flux, we find the time derivative of relative conductivity,  
+% %
+% \begin{align}
+%     \frac{d\tilde{C}_1}{dt} = \frac{4C_1^{\frac{3}{4}} C_2^{\frac{3}{4}}}{(C_1+C_2)^2}(r_2 g(r_1)-r_1 g(r_2)).
+% \end{align}
+% %
+% We find that $r_1=r_2$ is a fixed point, where flow is equally distributed between the edges resulting in homogenization. If $d \tilde C_1/dt <0$, then the edge with larger radius has a reduced growth the smaller radius edge has an increasing growth until $r_1=r_2$ is reached. This condition results in the homogenization where both edge's radius increases until the fixed point of $r_1=r_2$ is reached. The condition of $d \tilde C_1/dt<0$ is satisfied when 
+% %
+% \begin{align}
+%     \frac{g(r_1)}{g(r_2)}<\frac{r_1}{r_2}, \forall r_1>r_2>0.
+% \end{align}
+% %
+% The above result can further be simplified as if $d\left(g(r)/r\right)/dr<0$ which ultimately results in homogenization of the parallel edges. Lastly, we can also study the perturbation of tube's radius around the fixed point as $r_1=r_0_\delta r$ and $r_2 = r_0$. Using Taylor series expansion, we can show that stability condition reduces to $g(r_0)>g'(r_0) r_0$. Therefore, if the erosion rate is sub-linear locally near the initial radius, the network moves towards homogenization in short time, while the long term behavior is less predictable. On the other hand, if the erosion rate is sup-linear, we expect the parallel tubes to move away from homogenization (i.e., channelization) in short times. Applying the power law erosion model with $f(q,r)=\alpha q^m/r^n$, it can be shown that $g(r) \propto  r^{4m-n} $, and therefore homogenization condition becomes $4m-n<1$ as seen in simulations. Although the result is derived under the constant pressure difference assumption, it holds validity for homogenization cases, where the pressure difference is going towards homogenization as well. However, for channelization cases, the pressure difference can be varied vastly inside the network, thus once the channelization happens, negative feedback effect of erosion rate might not be able to reverse that.
+
+% \textbf{Series Tubes: }
+% %
+% In the series toy model, we have $q_1=q_2 = q = \frac{C_1 C_2}{C_1+C_2}\delta p$ and similar results can be derived so that the condition for homogenization becomes
+% %
+% \begin{align}
+%     \frac{f(q,r_1)}{f(q,r_2)}<\frac{r_1}{r_2}, \forall r_1>r_2>0.
+% \end{align}
+% %
+% Note that if the dependence of $f$ on $q$ is non-homogeneous, then this condition might be valid for some $q$'s but not the others. Applying the power law erosion model with $f(q,r)=\alpha q^m/r^n$, it can be shown that homogenization condition is $n>0$ as it has been seen in simulations. 
+
+\add{\section{General shear dependent erosion model}}
+\add{
+As an example of a nonlinear erosion model, we consider a shear-dependent erosion
+%
+\begin{align}
+    \frac{dr}{dt} = f(\tau),
+\end{align}
+%
+where $\tau=\tau(q,r) = 4\mu q/\pi r^3$ is the shear stress at the tube's wall assuming Poiseuille flow. It is to be noted that a shear-dependent erosion model is commonly used in studying erosion  \cite{jager2017channelization,bonelli2011micromechanical,parker2000purely} wherein such models erosion happens linearly proportional to the shear stress at the wall only after a certain threshold value $\tau_0$ (see main text for more information). Such linear models, however, ignore the maximum detachment rate of particles at the pore's boundary which would effectively limit the pore's radius maximum rate of change. To address this, we use a nonlinear erosion model
+%
+\begin{align}
+    f(\tau) = \alpha \left( \tanh{\left[ \beta(\tau - \tau_0)\right]}+1\right),
+    \label{eq:sigmoidErosion}
+\end{align}
+%
+where $\beta$ determines the shear rate scale and $\alpha$ determines the erosion rate scale. Note that the erosion rate scale $\alpha$ only affects the timescale at which the final state is reached and has no effect on the pattern formation. Without loss of generality we set $\alpha = 1$. Following the local dynamics model discussion in the main text, one can find that the homogenization condition reduces to 
+%
+\begin{align}
+    f(\tau)>\tau \frac{df(\tau)}{d \tau}.
+    \label{eq:sigmoidCondition}
+\end{align}
+%
+Assuming a random network (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}a), the initial values of shear stress at the walls have a  decaying distribution over a large set of values (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}b). 
+%Assuming nonlinear shear dependent erosion model (Eq. \eqref{eq:sigmoidErosion}) three regions of erosion can be identified: (i) The constant erosion region as $\tau\to\infty$. In this region the erosion happens at a constant rate $\lim_{\tau \to \infty} f(\tau) = 2$ and additionally the homogenization condition (Eq.~\eqref{eq:sigmoidCondition}) is satisfied (since $\lim_{\tau \to \infty} f(\tau) = 2$ and $\lim_{\tau \to \infty} f'(\tau) = 0$). It is to be noted that the homogenization effect for the constant erosion rate is similar to $m=0,n=0$ case for the erosion model discussed in the main text; (ii)  The slow-erosion region as $\tau\to 0$. In this region both $f(\tau)$ and $\tau f'(\tau)$ are close to 0 and since $f(\tau)$ is bounded in-between 0 and 2, erosion in the edges at this region happens at a very slower rate compared to other edges with nonzero shear-rate; (iii) The finite erosion-rate region near $\tau = \tau_0$, where $f(\tau)$ is an increasing function. In this region $\tau f'(\tau)$ has a maximum at $\beta \tau_0$ with a bandwidth of $1/\beta$. If $\beta \tau_0 < 1$, then the maximum $\tau f'(\tau)$ does not exceed 1, and the homogenization condition holds true for any $\tau$. As the value of $\tau_0$ increases, the homogenization region moves towards larger values of $\tau$ where edges with smaller values of $\tau$ would result in channelization.  It can be seen that varying $\beta$ and $\tau_0$ changes the network behavior. 
+To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three different tests: (i) $\beta=1,\tau_0=1$: For such values of $\beta,\tau$, almost all the tubes are in the homogenization region corresponding to Eq.~\eqref{eq:sigmoidCondition} (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}c) and the network moves toward homogenization (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}d). The final PDF of the network after erosion is further shown in (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}e). (ii) $\beta=1, \tau_0=12$: In this case, the homogenization condition is satisfied at some finite value of shear stress $\tau_0$ where $f(\tau_0) = \tau_0 f(\tau_0)$. As a result, some edges would homogenize, and some would channelize (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}f). Running the simulation over a random network, we find that a finite number of channels form (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}g). The PDF distribution of shear stress at the wall $\tau$ correspondingly becomes bimodal (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}h). (iii) $\beta=1, \tau_0=30$: In this case, almost all the edges in the network are in the channelization regime  (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}i), and performing the simulations we find that indeed one strong single channel is formed (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}j) and the PDF of shear stress $\tau$ shows a clear separation between flow in the channel versus flow in the rest of the system (Fig.~\ref{SIfig:fig9-sigmoidDelaunay}k). 
+}
+   \begin{figure}[htp]
+     % \centering
+      \includegraphics[width = 0.8\textwidth]{sigmoidDelaunay.pdf}
+     \caption{\textcolor{blue}{(a) A 2D random network with $N_x=50$ and $N_y=50$ points. (b) The probability distribution function (PDF) of the shear stress for the edges of the network. (c)/(f)/(i) The PDF of the shear stress along with nonlinear erosion law $f(\tau)$ (solid red line) and $\tau f'(\tau)$ (dashed red line). The areas where the homogenization condition (i.e., $f(\tau)>\tau f'(\tau)$) is satisfied are shaded with green color, otherwise, the channelization condition is satisfied and the region is shaded with red color. (d)/(g)/(j) Snapshots of the 2D network after erosion using the nonlinear erosion law shown in the previous row until the average radius of the network is increased to twice its original size. (e)/(h)/(k) The PDF of the shear stress at the walls for the final snapshot of the network shown in the previous row. 
+    }}
+     \label{SIfig:fig9-sigmoidDelaunay}
+ \end{figure}
+ 
+%  \begin{figure}[htp]
+%      % \centering
+%       \includegraphics[width = 1.0\textwidth]{sigmoidDelaunay_rev1.pdf}
+%      \caption{\add{Nonlionear erosion in a 2D random network of tubes with $N_x=50$ and $N_y=50$, where edge radii are sampled from a uniform distribution with $\mathcal{U}[1,14]$. Snapshots of the network after for different erosion rate $\beta$ and threshold values $\tau_0$ are shown after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle = 7.5$. The erosion law is based on Eq. \eqref{eq:sigmoidErosion}. As shown above, increasing $\tau_0$ results in a stronger channelization, while changing $\beta$ has a much smaller effect. Note that increasing $\tau_0$, increases the number of tubes in the channelization region, while increasing $\beta$ slightly shifts the region and has a much smaller effect.} }
+%      \label{SIfig:fig10-sigmoidDelaunay}
+%  \end{figure}
+ 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{align}
+%     \frac{dr_i}{dt} = f(|q_i|,r_i),
+% \end{align}
+% %
+% where $i = 1$ and $2$ correspond to pipe 1 and pipe 2 respectively and $f(q,r)$ can be negative thus it allows clogging. In the toy model case $q_i = C p r_i^4$ where $p$ is the pressure difference between two terminals of the pipes. Therefore the erosion rate only depends on $r_i$
+% \begin{align}
+%     f(|q_i|,r_i) = g(r_i).
+% \end{align}
+% The time derivative of relative conductivity $\tilde{C}_1 = C_1/(C_1+C_2)$ can be written as
+% \begin{align}
+%     \frac{d\tilde{C}_1}{dt} = \frac{4C_1^{\frac{3}{4}} C_2^{\frac{3}{4}}}{(C_1+C_2)^2}(r_2 g(r_1)-r_1 g(r_2)).
+% \end{align}
+% It is obvious that in the toy model, $r_1=r_2$ is a fixed point, while its stability depends on the form of $f(q,r)$, or equivalently $g(r)$ in the parallel case. It can be shown that the condition for homogenization is 
+% \begin{align}
+%     \frac{g(r_1)}{g(r_2)}<\frac{r_1}{r_2}, \forall r_1>r_2>0.
+% \end{align}
+% This is a strong constraint to $g(r)$, and in reality it might not hold true for arbitrary $r$'s when negative feedback over erosion rate is introduced. One generalization we can make is to expand the function near the value we are interested in. Let $r_0 = r_2$ be the initial value, and $r_1 = r_0 + \delta r$ to be the perturbation in one pipe. With Taylor series expansion the above condition can be written as
+% \begin{align}
+%     g(r_0)>g'(r_0) r_0.
+% \end{align}
+% Therefore, if the erosion rate is sub-linear locally near the initial radius, we can say it will drive the network towards homogenization in short time, while the long term behavior is less predictable. On the other hand, if the erosion rate is sup-linear, we expect to see channelization to some extent. 
+
+% Applying the power law erosion model with $f(q,r)=C q^m/r^n$, it can be shown that $g(r) = C p r^(4m-n) $ and therefore homogenization condition is $4m-n<1$ as seen in simulations. 
+
+% Although the result is derived under the constant pressure difference assumption, it holds validity for homogenization cases, where the pressure difference is going towards homogenization as well. However, for channelization cases, the pressure difference can be varied vastly inside the network, thus once the channelization happens, negative feedback effect of erosion rate might not be able to reverse that.
+
+% In the series toy model, we have $q_1=q_2 = q = p \frac{C_1 C_2}{C_1+C_2}$ and similar results can be derived so that the condition for homogenization is
+% \begin{align}
+%     \frac{f(q,r_1)}{f(q,r_2)}<\frac{r_1}{r_2}, \forall r_1>r_2>0.
+% \end{align}
+% Note that if the dependence of $f$ on $q$ is non-homogeneous, then this condition might be valid for some $q$'s but not the others. 
+
+% Applying the power law erosion model with $f(q,r)=C q^m/r^n$, it can be shown that homogenization condition is $n>0$ as seen in simulations. 
+
+\clearpage
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+
+% \bibliography{ref}% Produces the bibliography via BibTeX.
+%apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
+%Control: key (0)
+%Control: author (8) initials jnrlst
+%Control: editor formatted (1) identically to author
+%Control: production of article title (0) allowed
+%Control: page (0) single
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{8}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \@ifx{#1\undefined}
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \@ifx [1]{%
+ \ifx #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote  [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand \href@noop [0]{\@secondoftwo}%
+\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode
+  `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@@startlink[1]{}%
+\providecommand \@@endlink[0]{}%
+\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+\providecommand \urlprefix  [0]{URL }%
+\providecommand \Eprint [0]{\href }%
+\providecommand \doibase [0]{https://doi.org/}%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo  [0]{\@secondoftwo}%
+\providecommand \bibfield  [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen [0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+\let\auto@bib@innerbib\@empty
+%</preamble>
+\bibitem [{git(2021)}]{githubrepo}%
+  \BibitemOpen
+  \href@noop {} {\bibinfo {title} {Network instability}},\ \bibinfo
+  {howpublished} {\url{https://github.com/ahmadzareei/networkInstability}}
+  (\bibinfo {year} {2021})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Liu}\ \emph {et~al.}(1995)\citenamefont {Liu},
+  \citenamefont {Nagel}, \citenamefont {Schecter}, \citenamefont {Coppersmith},
+  \citenamefont {Majumdar}, \citenamefont {Narayan},\ and\ \citenamefont
+  {Witten}}]{liu1995force}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.-h.}\ \bibnamefont
+  {Liu}}, \bibinfo {author} {\bibfnamefont {S.~R.}\ \bibnamefont {Nagel}},
+  \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Schecter}}, \bibinfo
+  {author} {\bibfnamefont {S.}~\bibnamefont {Coppersmith}}, \bibinfo {author}
+  {\bibfnamefont {S.}~\bibnamefont {Majumdar}}, \bibinfo {author}
+  {\bibfnamefont {O.}~\bibnamefont {Narayan}},\ and\ \bibinfo {author}
+  {\bibfnamefont {T.}~\bibnamefont {Witten}},\ }\bibfield  {title} {\bibinfo
+  {title} {Force fluctuations in bead packs},\ }\href@noop {} {\bibfield
+  {journal} {\bibinfo  {journal} {Science}\ }\textbf {\bibinfo {volume}
+  {269}},\ \bibinfo {pages} {513} (\bibinfo {year} {1995})}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Coppersmith}\ \emph {et~al.}(1996)\citenamefont
+  {Coppersmith}, \citenamefont {Liu}, \citenamefont {Majumdar}, \citenamefont
+  {Narayan},\ and\ \citenamefont {Witten}}]{coppersmith1996model}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Coppersmith}}, \bibinfo {author} {\bibfnamefont {C.-h.}\ \bibnamefont
+  {Liu}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Majumdar}},
+  \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Narayan}},\ and\ \bibinfo
+  {author} {\bibfnamefont {T.}~\bibnamefont {Witten}},\ }\bibfield  {title}
+  {\bibinfo {title} {Model for force fluctuations in bead packs},\ }\href@noop
+  {} {\bibfield  {journal} {\bibinfo  {journal} {Physical Review E}\ }\textbf
+  {\bibinfo {volume} {53}},\ \bibinfo {pages} {4673} (\bibinfo {year}
+  {1996})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Alim}\ \emph {et~al.}(2017)\citenamefont {Alim},
+  \citenamefont {Parsa}, \citenamefont {Weitz},\ and\ \citenamefont
+  {Brenner}}]{alim2017local}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.}~\bibnamefont
+  {Alim}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Parsa}},
+  \bibinfo {author} {\bibfnamefont {D.~A.}\ \bibnamefont {Weitz}},\ and\
+  \bibinfo {author} {\bibfnamefont {M.~P.}\ \bibnamefont {Brenner}},\
+  }\bibfield  {title} {\bibinfo {title} {Local pore size correlations determine
+  flow distributions in porous media},\ }\href@noop {} {\bibfield  {journal}
+  {\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume}
+  {119}},\ \bibinfo {pages} {144501} (\bibinfo {year} {2017})}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {Parsa}\ \emph {et~al.}(2021)\citenamefont {Parsa},
+  \citenamefont {Zareei}, \citenamefont {Santanach-Carreras}, \citenamefont
+  {Morris}, \citenamefont {Amir}, \citenamefont {Xiao},\ and\ \citenamefont
+  {Weitz}}]{shima2021}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Parsa}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Zareei}},
+  \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Santanach-Carreras}},
+  \bibinfo {author} {\bibfnamefont {E.~J.}\ \bibnamefont {Morris}}, \bibinfo
+  {author} {\bibfnamefont {A.}~\bibnamefont {Amir}}, \bibinfo {author}
+  {\bibfnamefont {L.}~\bibnamefont {Xiao}},\ and\ \bibinfo {author}
+  {\bibfnamefont {D.~A.}\ \bibnamefont {Weitz}},\ }\bibfield  {title} {\bibinfo
+  {title} {Unexpected scaling of interstitial velocities with permeability due
+  to polymer retention in porous media},\ }\href@noop {} {\bibfield  {journal}
+  {\bibinfo  {journal} {Physical Review Fluids}\ }\textbf {\bibinfo {volume}
+  {6}},\ \bibinfo {pages} {L082302} (\bibinfo {year} {2021})}\BibitemShut
+  {NoStop}%
+\bibitem [{\citenamefont {J{\"a}ger}\ \emph {et~al.}(2017)\citenamefont
+  {J{\"a}ger}, \citenamefont {Mendoza},\ and\ \citenamefont
+  {Herrmann}}]{jager2017channelization}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont
+  {J{\"a}ger}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Mendoza}},\
+  and\ \bibinfo {author} {\bibfnamefont {H.~J.}\ \bibnamefont {Herrmann}},\
+  }\bibfield  {title} {\bibinfo {title} {Channelization in porous media driven
+  by erosion and deposition},\ }\href@noop {} {\bibfield  {journal} {\bibinfo
+  {journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo
+  {pages} {013110} (\bibinfo {year} {2017})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bonelli}\ and\ \citenamefont
+  {Marot}(2011)}]{bonelli2011micromechanical}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {Bonelli}}\ and\ \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+  {Marot}},\ }\bibfield  {title} {\bibinfo {title} {Micromechanical modeling of
+  internal erosion},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {European Journal of Environmental and Civil Engineering}\ }\textbf {\bibinfo
+  {volume} {15}},\ \bibinfo {pages} {1207} (\bibinfo {year}
+  {2011})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Parker}\ and\ \citenamefont
+  {Izumi}(2000)}]{parker2000purely}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont
+  {Parker}}\ and\ \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Izumi}},\
+  }\bibfield  {title} {\bibinfo {title} {Purely erosional cyclic and solitary
+  steps created by flow over a cohesive bed},\ }\href@noop {} {\bibfield
+  {journal} {\bibinfo  {journal} {Journal of Fluid Mechanics}\ }\textbf
+  {\bibinfo {volume} {419}},\ \bibinfo {pages} {203} (\bibinfo {year}
+  {2000})}\BibitemShut {NoStop}%
+\end{thebibliography}%
 
 \end{document}
-%
 
-%###############################################################
-%###############################################################
-%###############################################################
-%###############################################################
-%###############################################################
-%###############################################################
-%###############################################################
 
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
+%#############################################################
 
 \newpage
 \section{Clogging behavior at initial times}
 % 
-Considering a small change in the radius of edges, and as a result, the conductance of the edges $\mathbf{C}+\delta \mathbf{C}$, using Eq. \eqref{eq:main-network} we find that 
+Considering a small change in the radius of edges, and as a result, the conductance of the edges $\mathbf{C}+\delta \mathbf{C}$, using Eq. \eqref{main-solve-eq} we find that 
 %
 \begin{align}
     \ket{P'} &=  \ket{P} -  \left( \Delta_n^\top\mathbf{C} \Delta_n\right)^{-1}\left[  \left( \Delta_n^\top \delta \mathbf{C} \Delta_n\right)\ket{P} + \left( \Delta_n^\top\delta \mathbf{C} \Delta_b\right) \ket{P_{BC}}\right],
