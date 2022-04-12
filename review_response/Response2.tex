@@ -140,10 +140,19 @@ Response to the Reviewers' comments for manuscript \\
 % \centerline{Negative numbers are counted from the bottom of the page.}
 %({\color{orange}\mbox{------}})
 
+\Question{I have read the three referee reports
+and the authors' answers to all questions and criticisms. I think the
+authors have tried to answer all the referee's points and most answers
+are satisfactory to me.}
+
+\vspace{0.3 cm}
+
+\Answer{We appreciate the referee's thorough reviews.}
+\vspace{0.3 cm}
 
 \Question{
 The only answer that I do not find completely satisfying is to this
-point: ``…since the authors have access to experimental setups, it
+point: ``...since the authors have access to experimental setups, it
 would greatly improve this work if they could provide experimental
 proof of the phase transition in a real system." To what the authors
 answered: `` With regards to the experimental tests, all the authors of
@@ -180,7 +189,7 @@ and has no lab space.
 We would like to make some clarifications with regards to Ref. [31].
 In this work Dr. Shima Parsa, then a postdoc in the Weitz lab, had
 empirical observations relating the mean velocity and permeability as
-flow in a porous material is clogged with a polymer. Dr. Ahmad Zareii,
+flow in a porous material is clogged with a polymer. Dr. Ahmad Zareei,
 working under the guidance of Prof. Ariel Amir, set out to explain the
 observed scaling using a combination of numerical simulations and
 analytical work, which led to a joint publication (Ref. [31] mentioned
@@ -188,19 +197,7 @@ by the referee). Note that the experiments were performed by Dr. Parsa
 over the course of several years while she was at Harvard. Dr. Parsa
 has recently started as faculty at the Rochester Institute of
 Technology, and therefore the experimental system associated with Ref.
-[31] is no longer active at Harvard. We also resonated with the
-comments of Referee D: "Experiments are notoriously hard to perform
-and can not be produced easily, especially when the parameter space
-that needs to be explored is as wide as in this study (without
-considering the 3D and polar simulations in the supplementary). I
-believe that the results are convincing, and requiring an experiment
-is somewhat unrealistic for the scope of this study. In many ways,
-this study can trigger the community to search for this ordering
-parameter in existing experimental setups, which will advance the
-field further by exploring the role of flow rate to shear rate or mean
-pore size." Indeed, we hope that as Referee D mentioned our
-theoretical study will trigger further experimental work in the
-future.}
+[31] is no longer active at Harvard. We hope that as Referee D mentioned our theoretical study will trigger further experimental work in the future.}
 
 
 \newpage
@@ -229,7 +226,7 @@ publishing in PRE or PRFluids where the excellent Supplementary
 Material could be included in the body of the article.\newline}
 
 
-\Answer{We thank the reviewer for their thoughtful and thorough comments.}
+\Answer{We thank the reviewer for their thoughtful comments.}
 
 
 
@@ -245,22 +242,36 @@ cases will have a scale associated with them (e.g. a non-trivial
 dependence on flow-rate). In the more general case we will find that
 Eq. (3) and the condition described just after it will hold for some
 flow rates but not all. This dependence on flow rate (or applied
-pressure drop) is not well explained in the manuscript. Also, the new
-investigation of a tanh profile shows that intermediate states are
+pressure drop) is not well explained in the manuscript. Also, the new investigation of a tanh profile shows that intermediate states are
 possible - i.e. states that lie somewhere between homogenization and
 instability. It would be good for the manuscript to acknowledge some
-of these limitations of their result - which remains interesting.\newline}
+of these limitations of their result - which remains interesting.
+\newline}
 
-\Answer{We thank the reviewer for the valuable comment. Indeed our model has limitations. We have now expanded our conclusion to include such limitations as mentioned by the reviewer.
+\Answer{We thank the reviewer for the valuable comment. Indeed for a more general erosion dynamics the condition in Eq.~(3) might not hold for all the local connections and as noted a transitional region is observed; in other words, the stability criterion is obeyed initially for some pipes (below a threshold shear stress/radius) but does not hold above it. Naively, one would expect flow in the stable pipes to be maintained over time, while channelization would occur for the others. However, during the process of channelization, flow is redistributed throughout the network and the flow distribution therefore changes -- implying that some pipes that were initially in the stable regime may become unstable at later times. This is indeed what we observe in our simulations, for non-scale-free erosion laws. Furthermore, it is precisely this dynamics which enables the formation of \emph{multiple} channels, in contrast to the single channels observed for the scale-free erosion laws.
 
+We have now included the remarks from the supplementary material in the main text. With regards to addressing the limitations, we have now expanded our conclusion to address the limitations of our model. The relevant parts from the main text are included here for completeness.\newline}
+% our model has limitations
+% . We have now expanded our conclusion to include such limitations as mentioned by the reviewer. admit scale free after Eq. 3 If not parallel, g(r) can be more complex acknowledge inbetween cases in the main text ...
 
-admit scale free after Eq. 3
-
-If not parallel, g(r) can be more complex 
-
-acknowledge inbetween cases in the main text ...
+\Answer{From \p3 of the main text:}
+\AnswerQ{
+\begin{quote}
+   ``Note that, the fact that local dynamics predict the fate of the overall network in the way described above is a result of the scale-free nature of the aforementioned power-law erosion model. Later, we will discuss richer phenomenology that may arise in the case of physical erosion laws possessing an intrinsic scale.''
+\end{quote}
 }
- 
+\Answer{From \p4 of the main text:}
+\AnswerQ{
+\begin{quote}
+    ``It is to be noted that the scale-free nature of our model as discussed after Eq. (3) is the main reason for the local dynamics setting the behavior of the whole network. Physical systems often have a scale associated with them, and in such cases, Eq.~(3) and the condition described just after hold true for some flow rates but not all. Investigating nonlinear erosion dynamics, we found that transitional states are then possible.''
+\end{quote}
+\AnswerQ{
+\begin{quote}
+    ``Note that for general erosion dynamics, the condition in Eq. (3) might hold for some but not all of the pipes at a given time. Furthermore, during the process of erosion, flow is redistributed throughout the network and therefore the flow distribution changes. This dynamical process enables the formation of \emph{multiple} channels, in contrast to the single channels observed for the scale-free erosion laws (see SM \S7 and Fig. S10).''
+\end{quote}
+}
+}
+
 
 
 
@@ -294,42 +305,43 @@ shear stress being proportional to $q/r^3$ - this is a standard result
 but it would improve readability for the PRL audience.
 \newline}
 
-\Answer{We would like to point out that for $n=3$ the network does not stay the same, since series connections are always moving toward homogenization, while parallel connections are staying in a constant proportion. This results in seeing differences between the statistics of the network at $t=0$ and the evolved network at later stages for $n=3$ (see Fig. 2 in the main text). Additionally, we expect the transition to happen at  approximate $n\approx3$ (see comment 2G for more details). We have now included this point in the main manuscript to avoid confusion.}
+\Answer{We would like to thank the reviewer for their thorough reading. In fact, moving from $\dot{m}$ to $\dot{r}$, a factor of $1/r$ is introduced, since $dm=2\pi \rho rl dr$ in a cylindrical pipe. There is a typo in this equation and the factor should read $\kappa/r$. We have corrected the equation and additionally included more information to make the derivation clearer. The reference for the shear stress proportionality with $q/r^3$ is now added to the main text. The relevant part of the manuscript is included below.}
 %
 \\
 
-\Answer{From \p4 of the main text:}
+\Answer{From \p2 of the main text:}
 \AnswerQ{
 \begin{quote}
-    ``It is to be noted that while the flow ratio remains constant for parallel edges, the connection in series are evolving toward homogenization and that is why we find a difference between evolved network for $n=3$ and the network at $t=0$.''
+    ``In a class of erosion models previously studied [34-36] the eroded mass per unit area is linearly proportional to the excess shear, i.e.,  $\dot{m}  = \kappa  (\tau_w-\tau_c)$ where $\kappa$ is the linear proportionality constant. This erosion model effectively results in an increase in the radius of the edges in our network model where $\dot{r} \propto \kappa/r (|q|/r^3 - \tau_c)$ , where the $1/r$ factor comes from the eroded mass $dm =2\pi\rho r l dr$ for a cylindrical pipe and $|q|/r^3$ comes from the shear stress of laminar flow in pipes [37].''
 \end{quote}
 }
-
-
-
-
-\vspace{0.5cm}
-\textbf{Comment C3}
-\noindent \vspace{-0.2cm}\\ \Hline\\
-
-\Question{Last line of page 3 - the parameter $L$ looks to be used without
-definition.}
-\\
-
-\Answer{We thank the reviewer for their careful comment. We have now included the definition in the main text.}%
-
-\AnswerQ{
-\begin{quote}
-    ``To understand the transition in network behavior during erosion, we focus on a simplified model with only two tubes \add{of the same length $L$} in parallel or series with a general erosion dynamics as $dr_{i}/dt = f(q_{i},r_{i}), i=1,2$ (Figs. \ref{fig:fig3}b-c)''   
-\end{quote}
-}
-
 
 
 
 
 \vspace{0.5cm}
 \textbf{Comment C4}
+\noindent \vspace{-0.2cm}\\ \Hline\\
+
+\Question{Last line of page 3 - the parameter $L$ looks to be used without
+definition.}
+\\
+
+\Answer{We thank the reviewer for the comment. We have now included the definition in the main text.}%
+
+\Answer{From \p3 of the main text:}
+\AnswerQ{
+\begin{quote}
+    ``To understand the transition in network behavior during erosion, we focus on a simplified model with only two tubes of the same length $L$ in parallel or series with a general erosion dynamics as $dr_{i}/dt = f(q_{i},r_{i}), i=1,2$.''   
+\end{quote}
+}
+
+
+
+
+
+\vspace{0.5cm}
+\textbf{Comment C5}
 \noindent \vspace{-0.2cm}\\ \Hline\\
 
 \Question{It would be great to briefly explain the physical origin of the
@@ -339,51 +351,25 @@ the fractional change in conductance associated with a change in
 radius, and that the fractional change will be inversely proportional
 to the radius.\newline}
 
-\Answer{We thank the reviewer for their valuable recommendations. The physical origin the scale-free criteria $r_1/r_2$ turns out to be the result of power law dependence of conductance with respect to radius, meaning that our homogenization condition can be generalized to nonlaminar flow as well. The relevant part is attached. }
+\Answer{We thank the reviewer for their valuable suggestion. The physical origin of the scale-free criteria $r_1/r_2$ turns out to be a result of power-law dependence of conductance with respect to radius (i.e., $C\propto r^k$). Interestingly, this indicates that our homogenization condition can be generalized to non-laminar flow where conductance has again a power-law dependence on the radius [50]. The relevant part is attached here for completeness. \newline }
+\\
+
+\Answer{From \p3 of the main text:}
 \AnswerQ{
 \begin{quote}
-    ``In fact, this condition will hold for nonlaminar flow as long as $C\propto r^k (k > 0)$. The power law dependence of conductance with respect to radius leads to the scale-free criteria $r_1/r_2$. ''   
+    ``Note that the scale-free criteria here (i.e., the dependence on the dimensionless factor $r_1/r_2$) results from the power-law dependence of conductance on radius, i.e., $C\propto r^k (k > 0)$. As a result, in addition to laminar flow (where $C\propto r^4$), the above condition also holds true for nonlaminar flow examples such as molecular flow where $C\propto r^3$ [50].''
+    % ``In fact, this condition will hold for nonlaminar flow as long as . The power law dependence of conductance with respect to radius leads to the scale-free criteria $r_1/r_2$. ''
 \end{quote}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%% Review # 3 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage 
-\vspace{10 mm}
-\noindent
-\Hline \\
-\textbf{Response to Reviewer D} \\
-\Hline
-\\
-
-\Question{This paper presents 2D and 3D pore-network models of single-phase flow through porous media, involving channel erosion. The erosion rate in a channel is modeled as a function of the flow rate through the channel and the radius of the channel.The manuscript presents an interesting transition in the behaviour of these models from a stabilizing behavior where narrow channels erode more quickly than wider ones (``homogenization'') to an unstable regime where all the flow ends up in a few pathways ``instability''). Overall I judge this to be an interesting paper that may be worth publishing in a journal such as PRFluids, but falls short of the level of impact required for PRL. I explain this below.  The manuscript has many strengths which include: - it's very clearly written and with excellent figures that clearly demonstrate the phenomena being explored; - good numerical modeling that includes 2D and 3D simulations in random and regular network topologies; - results which are universal within the class of models being considered here, being valid 2D and 3D and in regular and random networks; - a clear theory to explain the results using a local analysis,suggesting links between global and local dynamics even in quite complex systems; - links to flow in biological systems
-\newline}
-
-
-
-\Answer{We thank the reviewer for their careful reading of the manuscript and their constructive
-remarks.}
-
-
-
-\vspace{0.5cm}
-\textbf{Comment 3A}
-\noindent \vspace{-0.2cm}\\ \Hline\\
-\Question{The weaknesses in the work include: the physical relevance of the model is not clear, except for the specific biological case ... more specifics in studies of models that are closest to this one are needed, particularly also mentioning the outcomes of those studies. Some of the model's (apparent) weaknesses are being a pure power law, its scaling with pressure is unphysical: the erosion rate in all channels merely increases uniformly with applied pressure, meaning that erosion occurs even at near-zero speed/stress; there is no onset threshold.\newline}
-
-\Answer{We appreciate the reviewers comment. The concern here is similar to comment 2F of Reviewer 2, and we repeat our reply here. Erosion in saturated granular materials occurs when the shear stress at the wall exceeds the cohesive strength of the solid matter. In the revised version, we study more realistic models including: (i) a model where the onset of erosion happens after reaching a threshold value; (ii) a model with a different (nonlinear) functional dependence on shear stress, where erosion starts after a certain threshold and eventually saturates to a maximum value which is determined by the maximal detachment rate of particles at the tube's boundary. We make predictions for both models using our analysis and find that the analytical results agree well with the numerical simulations. These results illustrate the generality of our model in relating to various physical models. (iii) Additionally, we expand our discussion before introducing the model to make a better connection with relevant studies of erosion. 
-We believe that these new results illustrate that the phase transition is a general effect, and that our analysis using the local dynamics model has the predictive power of identifying the phase transition condition. In the following we attach the relevant excerpts of the main text and the supplementary material.}
-
 
 \clearpage
 % \bigbreak
 
 % \bibliographystyle{unsrt}
 % \bibliography{ref}
-
-
-
-
 
 \end{document}

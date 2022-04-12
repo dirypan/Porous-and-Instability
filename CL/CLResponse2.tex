@@ -1,0 +1,116 @@
+%
+% harvard-letter.tex - an example latex file to illustrate harvardletter.cls
+%
+% Copyright 2019, Ahmad Zareei (ahmad@seas.harvard.edu)
+%
+
+
+\documentclass[11pt]{harvardletter}
+\usepackage{color}
+\usepackage{soul}
+
+
+\newcommand{\EM}[1]{\noindent \color{cyan} (EM: #1)\normalcolor}
+\newcommand{\KB}[1]{{\color{red}{Katia: #1}}}
+\newcommand{\del}[1]{\noindent \color{red} \st{#1}\normalcolor}
+\newcommand{\add}[1]{\noindent \color{blue} #1 \normalcolor}
+
+% \name{\includegraphics{./Signature.eps}} % used as signature, if no signature is specified
+
+\signature{% \vspace{-10mm}\includegraphics[height=0.4in]{Signature.eps}
+\\\textbf{Ariel Amir}\\ \textit{Thomas D. Cabot Associate Professor of Applied Mathematics and Applied Physics,} \\ \textit{School of Engineering and Applied Sciences,}\\ \textit{Harvard University} \\ \textit{Phone: (617) 495-5818}\\ \textit{Email: arielamir@seas.harvard.edu}}
+
+\date{} % if no date specified, today's date is used 
+
+% \subject{This is the subject of the letter} % optional subject line
+
+
+
+\begin{document}
+
+\vspace{-14mm}
+\begin{letter}{}
+  %              {Prof. ... .... \\ 
+  %              Harvard University\\ 
+  %              Cambridge, MA 02148}
+\vspace{-21mm}
+\hfill{December 7, 2021}
+\vspace{7mm}
+
+
+    % \begin{tabular}{l l }
+    %     \small{Title:}  & \textbf{\small{Temporal Evolution of Eroding Flow in Pore-Networks:}} \\ &  \textbf{\small{From Homogenization to Instability}} \vspace{2mm} \\ 
+    %     \small{Authors:}  & \small{Ahmad Zareei$^1$, Deng Pan$^1$, and Ariel Amir$^{1,2}$* (*corresponding author)} \vspace{2mm} \\
+    %     \small{Affiliations:} & \small{$^1$Harvard John A. Paulson School of Engineering and Applied Sciences, Harvard University} \\
+    %     & \small{$^2$Kavli Institute, Harvard University}
+    % \end{tabular}
+
+\vspace{-7mm}
+
+
+\opening{Dear Editor,}
+\add{
+We would like to thank for reviewers' careful reading and valuable comments. We appreciate that our revised work ``Temporal Evolution of Erosion in Pore-Networks: From Homogenization to Instability'' was found  ``greatly improved'', ``to achieve the level of significance that it can be published PRL'' and ``is a substantial advance in the field''. The remaining most significant concern expressed by all reviewers is a convincing experiment test that our theory can directly apply to. Unfortunately our group is a theory group and lack of lab space. 
+}
+
+We would like to appeal the decision to our paper and to re-submit our work ``Temporal Evolution of Erosion in Pore-Networks: From Homogenization to Instability'' for reconsideration as an article in Physical Review Letters. We would like to thank the reviewers for their insightful comments and positive feedbacks, where they found our work ``well written'', ``interesting paper worth publishing'', with ``a clear theory to explain the results'', and ``excellent figures that clearly demonstrate the phenomena being explored''. The main concern raised by the reviewers was the generality of our model and its physical relevance. We have now addressed this issue by expanding our initial model to a very general erosion law and identifying the homogenization condition for general erosion dynamics. We have further expanded the simplified model analysis, tested our analytical predictions by running numerical tests, and showed the agreement between our analysis and the network behavior. We believe the reviewers' main concerns have been addressed. 
+
+We would also like to point out that since we have posted our manuscript on the arXiv, we have received positive feedback from the community, e.g., Prof. Karen Alim, an expert in the field, has reached out to us and mentioned that she is now teaching our manuscript in one of her classes at the Technical University of Munich. 
+
+
+The main changes to our manuscript include:
+%
+\add{
+\begin{itemize}
+    \item Acknowledging and discussion of the limitations of the general erosion law.
+    
+\end{itemize}
+}
+
+
+% We are excited to re-submit our work “Temporal Evolution of Eroding Flow in Pore-Networks: From Homogenization to Instability" for consideration as an article in Physical Review Letters.
+
+% In this manuscript, we study the temporal evolution of flow in networks under dynamic changes in the pore structure, using a combination of analytical and numerical approaches.
+
+% Fluid flow through porous materials undergoing a dynamical change in its network of microstructure due to erosion or material deposition is ubiquitous in nature and has numerous environmental and industrial applications. Understanding the dynamical change is essential to improve any of the applications. In light of the plethora of applications, it is surprising that the evolution of porous structures exposed to erosion and deposition has only been partially understood both theoretically and experimentally.
+
+% In our work, we study a generic model of network evolution, that includes previous examples as particular cases. We show that depending on the erosion dynamics, the flow statistics may homogenize, stay unaffected, or become unstable and develop channels. We quantify the phase transition and using a simple model we identify quantitative criteria to distinguish between these regimes and as a result correctly predicting the fate of
+% the network, which we corroborate numerically. 
+
+% Our results signify the importance of local dynamics and the nature of the feedback mechanism on the long-time global behavior of pore-networks and provide a simple route to connect local erosion dynamics to global bulk behaviors of the pore-network relevant for many environmental, biological, and industrial applications. We, therefore, trust that the results will be of interest to the broad readership of PRL.  We thank you for your consideration and look forward to hearing from you.
+
+
+% For reviewers, we suggest the following experts:
+
+% \textbf{Karen Alim}, Max Planck Institute for dynamics and self-organization, G\"ottingen, Germany, \texttt{k.alim@tum.de}
+
+% \textbf{Martin Blunt}, Imperial College London, \texttt{m.blunt@imperial.ac.uk}
+
+% \textbf{Harvey Scher}, Weizmann Institute of Science, \texttt{harvey.scher@weizmann.ac.il}
+
+% \textbf{Martin Bazant}, Massachusetts Institute of Technology, \texttt{bazant@mit.edu}
+
+% \textbf{Arshad Kudrolli}, Clark University, \texttt{akudrolli@clarku.edu}
+
+
+% \vspace{5mm}
+
+% \underline{\textbf{\small{This material has not been published and is not under consideration for publication elsewhere.}}}
+
+\vspace{5mm}
+
+We thank you for your consideration and look forward to hearing from you.
+
+
+\vspace{5mm}
+
+\closing{Sincerely,}
+
+
+% \encl{manuscript.pdf}
+% \ps{Please see the enclosed file.}
+% \cc{Dr. Ahmad Zareei}
+
+\end{letter}
+
+\end{document}

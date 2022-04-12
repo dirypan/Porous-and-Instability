@@ -154,7 +154,7 @@ where $\vec{P}_{BC} = [P^{BC}_1, \cdots, P^{BC}_{N_B}]^\top$ is the boundary nod
 %
 and re-iterate the process to solve for the new fluid flux vector. We use a simple forward Euler for time integration. For each iteration, we choose the time step $dt$ so that $\max(dr_e) = 0.1 r_0$, where $r_0$ is the smallest radius among all edges. 
 % Note that $r_{ij} (t+\delta t)  = r_{ij} (t)  + (\alpha \delta t)  q_{ij} (t)/ r^n_{ij} (t) $, where the coefficient $\alpha \delta t$ is chosen such that the maximum change in the radius at each time step is smaller than one-tenth  of the smallest tube's radius i.e. $\max (\Delta r_{ij}) \leq r_\text{min}/10$ of the smallest radius at the initial configuration.  
-This condition guarantees that at each step a small amount of material is eroded and there is no sudden change in the network. We further test the convergence by decreasing $\max(\Delta r_{ij})$ to half and we observe that the average relative change in the flux vector is $\approx 1.2\%$, and the PDFs remain intact without any notable change. The network size for the 2d/3d networks is $N_x=100,N_y=50$/$N_x=50,N_y=12, N_z=12$ unless mentioned otherwise. In either case, the network has an order of $10^3$ edges. \add{Note that the physical assumption of low Reynolds regime Re$\ll$1 at all times ensures that the Poisoulle flow assumption remains valid. Additional dimensionless transport numbers such as the P\'eclet number (ratio of advection to diffusion) or the Damkohler number (ratio of chemical reaction rate to the transport phenomena rate) are assumed to be respectively very large and very small, resulting in advection to be much stronger than diffusion and chemical reaction.  It is to be noted that considering diffusion or chemical reactions might change the dynamics of erosion as it requires tracking a secondary concentration field that might affect the local erosion law.} The code is publicly available in a GitHub repository \cite{githubrepo}. 
+This condition guarantees that at each step a small amount of material is eroded and there is no sudden change in the network. We further test the convergence by decreasing $\max(\Delta r_{ij})$ to half and we observe that the average relative change in the flux vector is $\approx 1.2\%$, and the PDFs remain intact without any notable change. The network size for the 2d/3d networks is $N_x=100,N_y=50$/$N_x=50,N_y=12, N_z=12$ unless mentioned otherwise. In either case, the network has an order of $10^3$ edges. {Note that the physical assumption of low Reynolds regime Re$\ll$1 at all times ensures that the Poisoulle flow assumption remains valid. Additional dimensionless transport numbers such as the P\'eclet number (ratio of advection to diffusion) or the Damkohler number (ratio of chemical reaction rate to the transport phenomena rate) are assumed to be respectively very large and very small, resulting in advection to be much stronger than diffusion and chemical reaction.  It is to be noted that considering diffusion or chemical reactions might change the dynamics of erosion as it requires tracking a secondary concentration field that might affect the local erosion law.} The code is publicly available in a GitHub repository \cite{githubrepo}. 
 
 
 %
@@ -229,8 +229,9 @@ The above equation gives a recursive relation for the Laplace transformed of flu
 \newpage
 \section{Robustness to topology, initial condition, and boundary condition}
 % 
-In order to check the robustness of our results with respect to the topology of the network, we run our simulations on a three-dimensional random network with Voronoi cell initialization of nodes in space (Fig. \ref{SIfig:fig2-3d}), and also for a two dimensional topologically ordered network with a diamond grid (Fig. \ref{fig:fig2-diamond}), where  both networks are initialized with a uniform random distribution for the diameter of the tubes. We find that regardless of the topology of the network, an erosion dynamics with $n>3$ results in a homogenized network, while $n<3$ results in the channelization instability. We further check the effect of initial randomness on the fate of the network. We use a two-dimensional diamond-grid network with a narrow uniform initial distribution of tube diameters around an average diameter $d_0$ with only a very small variation ($3\%$), i.e., the tube diameters are sampled from a uniform distribution with $\mathcal{U}(d_0(1-\epsilon), d_0(1+\epsilon))$. We again find that for the networks with $n<3$ channels are formed, while for $n>3$ the network stays homogenized. \add{In addition to the network topology and initial condition, we test the robustness of our results to changes in the boundary condition. We choose a circular domain, with the central node being the inlet and all the nodes at the outer boundary being outlets. Similar to the transition reported for the square
-domain, we find a phase transition at the predicted power which shows that our analysis is independent of the geometry (Fig.~\ref{SIfig:fig2-3d_circular}). }
+In order to check the robustness of our results with respect to the topology of the network, we run our simulations on a three-dimensional random network with Voronoi cell initialization of nodes in space (Fig. \ref{SIfig:fig2-3d}), and also for a two dimensional topologically ordered network with a diamond grid (Fig. \ref{fig:fig2-diamond}), where  both networks are initialized with a uniform random distribution for the diameter of the tubes. We find that regardless of the topology of the network, an erosion dynamics with $n>3$ results in a homogenized network, while $n<3$ results in the channelization instability. It is to be noted that the different distributions obtained for different powers of $n$ represent different statistics that cannot be collapsed. 
+We further check the effect of initial randomness on the fate of the network. We use a two-dimensional diamond-grid network with a narrow uniform initial distribution of tube diameters around an average diameter $d_0$ with only a very small variation ($3\%$), i.e., the tube diameters are sampled from a uniform distribution with $\mathcal{U}(d_0(1-\epsilon), d_0(1+\epsilon))$. We again find that for the networks with $n<3$ channels are formed, while for $n>3$ the network stays homogenized. {In addition to the network topology and initial condition, we test the robustness of our results to changes in the boundary condition. We choose a circular domain, with the central node being the inlet and all the nodes at the outer boundary being outlets. Similar to the transition reported for the square
+domain, we find a phase transition at the predicted power which shows that our analysis is independent of the geometry (Fig.~\ref{SIfig:fig2-3d_circular}). } 
 %
 \begin{figure}[htp]
      % \centering
@@ -253,15 +254,53 @@ domain, we find a phase transition at the predicted power which shows that our a
 \begin{figure}[htp]
      % \centering
       \includegraphics[width = 0.70\textwidth]{./circular3.pdf}
-     \caption{\textcolor{blue}{Erosion in a topologically random 3D network of tubes with a circular topology with $N = 3000 $ randomly distributed nodes and an initial uniform broad distribution of tube diameters randomly sampled from a uniform distribution with $\mathcal{U}(1,14)$. Shown are snapshots of the network, PDF of normalized fluid flux $q/\langle q \rangle$, and normalized edge radius distribution $r/\langle r \rangle$ at the initial time $t=0$, and also after $N$ erosion steps for different powers of erosion $n$. We stop the erosion after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion.}}\label{SIfig:fig2-3d_circular}
+     \caption{Erosion in a topologically random 3D network of tubes with a circular topology with $N = 3000 $ randomly distributed nodes and an initial uniform broad distribution of tube diameters randomly sampled from a uniform distribution with $\mathcal{U}(1,14)$. Shown are snapshots of the network, PDF of normalized fluid flux $q/\langle q \rangle$, and normalized edge radius distribution $r/\langle r \rangle$ at the initial time $t=0$, and also after $N$ erosion steps for different powers of erosion $n$. We stop the erosion after $N$ steps such that $\langle r\rangle=2r_0$ where $r_0 = \langle r_{t=0}\rangle$. The erosion law is based on Eq. (1) in the main text where different powers of $n$ correspond to different models of erosion.}\label{SIfig:fig2-3d_circular}
  \end{figure}
 %
 
 
 \clearpage
+\section{Order parameter and Phase transition}
+
+
+To quantify the transition of the network between the channeling instability and homogenization, we define an order parameter~\footnote{The order parameter defined here is inspired by the participation ratio (PR) employed to quantify the localization of an eigenstate in the analysis of Anderson localization~\cite{kramer1993localization}.} % $\mathcal{O}$ 
+		%
+		\begin{align}
+			\mathcal{O} = \frac{1}{N-1} \left( N - \frac{\left( \sum_{ij} q^2_{ij}\right)^2}{ \sum_{ij} q^4_{ij}}\right),
+		\end{align}
+		%
+where $N$ is the number of edges.  The order parameter $\mathcal{O}=0 $ when the flux through every edge is identical. On the other hand, when fluid flux becomes highly localized with only a few edges with non-zero flux, $\mathcal{O}\to 1$.  We numerically calculated the  order parameter $\mathcal{O}$ for {randomly initialized networks, averaged over 20 different realization} and the results are shown in Fig. \ref{fig:fig3-SIa}.  We find that at $n\approx 3$ the order parameter remains unchanged; however for $n>3$ the order parameter moves toward zero, where the flow becomes more uniform, and for $n<3$ the order parameter goes toward unity, where channels are developed. This indicates a phase transition at $n \approx 3$ in the long-time behavior of the network.
+
+
+% To quantify the transition of the network between the channeling instability and homogenization, we numerically calculated the order parameter $\mathcal{O}$ for randomly initialized networks, averaged over 20 different realization and the results are shown in Fig. \ref{fig:fig3-SI}a.  The results indicate a phase transition at $n\approx 3$ where at $n\approx 3$ the order parameter remains unchanged; while for $n > 3$ the order parameter moves toward zero and the flow becomes more uniform, and for $n < 3$ the order\ parameter goes toward unity and channels are developed.  Additionally, as discussed in section \textit{Local Dynamics Model} of the main text, to understand the transition in network behavior during erosion, we study a simplified model with only two tubes, where the results are illustrated in Fig.~\ref{fig:fig3-SI}b-c. Assuming two cylindrical tubes in series (Fig. \ref{fig:fig3-SI}b), the normalized pressure at the middle junction between the tubes approaches the average of pressure at both sides of the tube resulting in a homogenized pressure distribution. Contrary to tubes in series, when the tubes are in parallel, depending on the erosion dynamics, different behaviors of homogenization, channelization, or staying the same can be observed.
+
+\begin{figure}[!h]
+	% \centering
+	\includegraphics[width = 0.55\textwidth]{Fig3-order.pdf}
+	\caption{ Order parameter $\mathcal{O}$ calculated from simulation results presented in Fig. 2 of the main text for different powers of $n$ with $m=1$ plotted over time.  
+    % 	Local Dynamics Model: Tubes in series (a) or parallel (b) configuration. The tube radius dynamically change with the erosion law, i.e., $f(q,r) = \alpha |q|^m/r^n$. When the tubes are in series, for any $m,n$, (a$_1$) the normalized pressure at the middle junction between the tubes $\tilde p_m = (p_m - p_l)/(p_r-p_l)$ approaches $1/2$ which results in a homogenized pressure distribution. When the tubes are in parallel, for (b$_1$) $m=(n+1)/4$, the flow ratio between the pipes does not change over time; (b$_2$)  $m<(n+1)/4$ the flow distributes between the tubes equally and  $q_1/(q_1+q_2) \to 1$ which results in the homogenization of the network; (b$_3$) $m>(n+1)/4 $, the entire flow eventually passes through one of the tubes, and channeling occurs. 
+	}\label{fig:fig3-SIa}
+\end{figure}
+
+
+
+\section{Local Dynamics Model}
+As discussed in section \textit{Local Dynamics Model} of the main text, to understand the transition in network behavior during erosion, we study a simplified model with only two tubes, where the results are illustrated in Fig.~\ref{fig:fig3-SIb}a-b. Assuming two cylindrical tubes in series (Fig. \ref{fig:fig3-SIb}a), the normalized pressure at the middle junction between the tubes approaches the average of pressure at both sides of the tube resulting in a homogenized pressure distribution. Contrary to tubes in series, when the tubes are in parallel (Fig.~\ref{fig:fig3-SIb}b), depending on the erosion dynamics, different behaviors of homogenization, channelization, or staying the same can be observed.
+
+
+
+
+\begin{figure}[!h]
+	% \centering
+	\includegraphics[width = 0.95\textwidth]{Fig3-model.pdf}
+	\caption{Local Dynamics Model: Tubes in series (a) or parallel (b) configuration. The tube radius dynamically change with the erosion law, i.e., $f(q,r) = \alpha |q|^m/r^n$. When the tubes are in series, for any $m,n$, (a$_1$) the normalized pressure at the middle junction between the tubes $\tilde p_m = (p_m - p_l)/(p_r-p_l)$ approaches $1/2$ which results in a homogenized pressure distribution. When the tubes are in parallel, for (b$_1$) $m=(n+1)/4$, the flow ratio between the pipes does not change over time; (b$_2$)  $m<(n+1)/4$ the flow distributes between the tubes equally and  $q_1/(q_1+q_2) \to 1$ which results in the homogenization of the network; (b$_3$) $m>(n+1)/4 $, the entire flow eventually passes through one of the tubes, and channeling occurs. 
+	}\label{fig:fig3-SIb}
+\end{figure}
+
+
 \section{Erosion with a threshold}
 %
-\add{In order to make our erosion model more realistic, we modify the model as  
+{In order to make our erosion model more realistic, we modify the model as  
 %
 \begin{align}
     \frac{dr}{dt } = \begin{cases} q^m/r^n - \beta & q^m/r^n\geq \beta\\
@@ -283,7 +322,7 @@ which can be found using $g(r) = ({\pi \Delta p}/{8\mu L})^{m} r^{m-n} - \beta $
     \centering
  \includegraphics[width=0.45\textwidth]{./Fig_thres0.25.pdf}
   \includegraphics[width=0.45\textwidth]{./Fig_thresh0.9.pdf}
-     \caption{\add{Evolution of a randomly initialized network for various powers of $m$ and $n$ in Eq. \eqref{eq:thresh} with a small threshold value of $\beta = 0.25\langle q^m/r^n\rangle $ (left figure), and a large threshold value of $\beta = 0.9\langle q^m/r^n\rangle$ at $t=0$. The network is randomly initialized with $50\times 50$ randomly distributed pores. The black line shows the theoretical transition boundary between channelization instability and homogenization obtained using local dynamics model, i.e., $4m-n=0.75$ (left figure), and $4m-n=0.1$ (right figure).} }\label{fig:figthresh1}% 
+     \caption{Evolution of a randomly initialized network for various powers of $m$ and $n$ in Eq. \eqref{eq:thresh} with a small threshold value of $\beta = 0.25\langle q^m/r^n\rangle $ (left figure), and a large threshold value of $\beta = 0.9\langle q^m/r^n\rangle$ at $t=0$. The network is randomly initialized with $50\times 50$ randomly distributed pores. The black line shows the theoretical transition boundary between channelization instability and homogenization obtained using local dynamics model, i.e., $4m-n=0.75$ (left figure), and $4m-n=0.1$ (right figure). }\label{fig:figthresh1}% 
 \end{figure}
 
 % \begin{figure}[htp]
@@ -368,8 +407,8 @@ At short times, however, similar to the erosion, a phase transition exists at $n
 % %
 % Note that if the dependence of $f$ on $q$ is non-homogeneous, then this condition might be valid for some $q$'s but not the others. Applying the power law erosion model with $f(q,r)=\alpha q^m/r^n$, it can be shown that homogenization condition is $n>0$ as it has been seen in simulations. 
 
-\add{\section{General shear dependent erosion model}}
-\add{
+\section{General shear dependent erosion model}
+{
 As an example of a nonlinear erosion model, we consider a shear-dependent erosion
 %
 \begin{align}
@@ -397,8 +436,8 @@ To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three dif
    \begin{figure}[htp]
      % \centering
       \includegraphics[width = 0.8\textwidth]{sigmoidDelaunay.pdf}
-     \caption{\textcolor{blue}{(a) A 2D random network with $N_x=50$ and $N_y=50$ points. (b) The probability distribution function (PDF) of the shear stress for the edges of the network. (c)/(f)/(i) The PDF of the shear stress along with nonlinear erosion law $f(\tau)$ (solid red line) and $\tau f'(\tau)$ (dashed red line). The areas where the homogenization condition (i.e., $f(\tau)>\tau f'(\tau)$) is satisfied are shaded with green color, otherwise, the channelization condition is satisfied and the region is shaded with red color. (d)/(g)/(j) Snapshots of the 2D network after erosion using the nonlinear erosion law shown in the previous row until the average radius of the network is increased to twice its original size. (e)/(h)/(k) The PDF of the shear stress at the walls for the final snapshot of the network shown in the previous row. 
-    }}
+     \caption{(a) A 2D random network with $N_x=50$ and $N_y=50$ points. (b) The probability distribution function (PDF) of the shear stress for the edges of the network. (c)/(f)/(i) The PDF of the shear stress along with nonlinear erosion law $f(\tau)$ (solid red line) and $\tau f'(\tau)$ (dashed red line). The areas where the homogenization condition (i.e., $f(\tau)>\tau f'(\tau)$) is satisfied are shaded with green color, otherwise, the channelization condition is satisfied and the region is shaded with red color. (d)/(g)/(j) Snapshots of the 2D network after erosion using the nonlinear erosion law shown in the previous row until the average radius of the network is increased to twice its original size. (e)/(h)/(k) The PDF of the shear stress at the walls for the final snapshot of the network shown in the previous row. 
+    }
      \label{SIfig:fig9-sigmoidDelaunay}
  \end{figure}
  
@@ -468,6 +507,8 @@ To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three dif
 %#############################################################
 
 % \bibliography{ref}% Produces the bibliography via BibTeX.
+
+
 %apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
 %Control: key (0)
 %Control: author (8) initials jnrlst
@@ -476,7 +517,7 @@ To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three dif
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{8}%
+\begin{thebibliography}{10}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -567,6 +608,12 @@ To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three dif
   {\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume}
   {119}},\ \bibinfo {pages} {144501} (\bibinfo {year} {2017})}\BibitemShut
   {NoStop}%
+\bibitem [{Note1()}]{Note1}%
+  \BibitemOpen
+  \bibinfo {note} {The order parameter defined here is inspired by the
+  participation ratio (PR) employed to quantify the localization of an
+  eigenstate in the analysis of Anderson localization~\cite
+  {kramer1993localization}.}\BibitemShut {Stop}%
 \bibitem [{\citenamefont {Parsa}\ \emph {et~al.}(2021)\citenamefont {Parsa},
   \citenamefont {Zareei}, \citenamefont {Santanach-Carreras}, \citenamefont
   {Morris}, \citenamefont {Amir}, \citenamefont {Xiao},\ and\ \citenamefont
@@ -615,7 +662,21 @@ To test our local dynamics model, we vary $\beta$ and $\tau_0$ and run three dif
   {journal} {\bibinfo  {journal} {Journal of Fluid Mechanics}\ }\textbf
   {\bibinfo {volume} {419}},\ \bibinfo {pages} {203} (\bibinfo {year}
   {2000})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Kramer}\ and\ \citenamefont
+  {MacKinnon}(1993)}]{kramer1993localization}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+  {Kramer}}\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
+  {MacKinnon}},\ }\bibfield  {title} {\bibinfo {title} {Localization: theory
+  and experiment},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal}
+  {Reports on Progress in Physics}\ }\textbf {\bibinfo {volume} {56}},\
+  \bibinfo {pages} {1469} (\bibinfo {year} {1993})}\BibitemShut {NoStop}%
 \end{thebibliography}%
+
+
+
+
+
 
 \end{document}
 
